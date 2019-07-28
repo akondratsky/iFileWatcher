@@ -34,9 +34,6 @@ const MainMenu = (props) => {
           <ListItem button onClick={() => goToPage(Pages.Json)}>
             <ListItemText primary="JSON watchers" />
           </ListItem>
-          <ListItem button onClick={() => goToPage(Pages.Help)}>
-            <ListItemText primary="Help" />
-          </ListItem>
         </List>
         <Divider />
       </Drawer>
