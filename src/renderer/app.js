@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { createMemoryHistory } from 'history';
 import routes from './routes';
 import configureStore from './store';
-
+import CssBaseLine from '@material-ui/core/CssBaseline';
 import MainMenu from 'Components/MainMenu';
 
 const syncHistoryWithStore = (store, history) => {
@@ -25,6 +25,7 @@ const rootElement = document.getElementById('root');
 
 ReactDOM.render(
   <Provider store={store}>
+    <CssBaseLine />
     <MainMenu>
       <ConnectedRouter history={routerHistory}>{routes}</ConnectedRouter>
     </MainMenu>
