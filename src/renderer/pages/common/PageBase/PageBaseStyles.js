@@ -9,7 +9,7 @@ const PageBaseStyles = makeStyles(() => ({
     margin: 0,
   },
   controls: {
-    padding: '0 0 1rem',
+    padding: '.5rem 0 1rem',
   },
 }));
 
