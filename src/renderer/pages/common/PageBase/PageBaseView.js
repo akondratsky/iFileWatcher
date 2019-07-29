@@ -8,8 +8,8 @@ const PageBase = (props) => {
   return (
     <div className={cs.container}>
       <header>
-        <h1>{title}</h1>
-        <div>{controls}</div>
+        <h1 className={cs.pageTitle}>{title}</h1>
+        <div className={cs.controls}>{controls}</div>
       </header>
       <main>{body}</main>
     </div>
