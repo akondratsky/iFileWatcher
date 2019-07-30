@@ -1,8 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-  grid: {
-    border: '1px solid black',
+  tableHeader: {
+    color: '#000000',
+    backgroundColor: '#e0e0e0',
+    fontSize: '1rem',
   },
 }));
 

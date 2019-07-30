@@ -1,19 +1,31 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import Table from '@material-ui/core/Table';
+
 import useStyles from './JsonPageBodyStyles';
+import { TableHead, TableCell, TableBody, TableRow } from '@material-ui/core';
 
 const JsonPageBodyView = () => {
-  const classes = useStyles();
+  const css = useStyles();
 
   return (
-    <Grid container spacing={0} className={classes.grid}>
-      <Grid item xs={4}>
-        Hello
-      </Grid>
-      <Grid item xs={4}>
-        world
-      </Grid>
-    </Grid>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell className={css.tableHeader}>File</TableCell>
+          <TableCell className={css.tableHeader}>Second</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>File</TableCell>
+          <TableCell>isEnabled</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>File</TableCell>
+          <TableCell>isEnabled</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
   );
 };
 
