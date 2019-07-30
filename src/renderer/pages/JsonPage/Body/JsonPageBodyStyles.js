@@ -16,6 +16,12 @@ const useStyles = makeStyles(() => ({
     width: '80px',
     maxWidth: '80px',
   },
+  tooltip: {
+    maxWidth: '500px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
 }));
 
 export default useStyles;

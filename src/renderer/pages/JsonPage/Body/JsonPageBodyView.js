@@ -2,7 +2,7 @@ import React from 'react';
 import Table from '@material-ui/core/Table';
 
 import useStyles from './JsonPageBodyStyles';
-import { Switch, TableHead, TableCell, TableBody, TableRow } from '@material-ui/core';
+import { Switch, TableHead, TableCell, TableBody, TableRow, Tooltip } from '@material-ui/core';
 
 const watchers = [
   {
@@ -11,7 +11,6 @@ const watchers = [
     notify: true,
     tasks: 'npm i;npm start',
     enabled: false,
-    notify: true,
   },
   {
     name: 'Finder',
@@ -20,7 +19,6 @@ const watchers = [
     notify: false,
     tasks: 'npm i;npm start',
     enabled: true,
-    notify: false,
   },
 ];
 
@@ -53,8 +51,9 @@ const JsonPageBodyView = () => {
               />
             </TableCell>
             <TableCell>{watcher.name}</TableCell>
-
-            <TableCell className={css.tableCell}>{watcher.file}</TableCell>
+            <Tooltip title={watcher.file} classes={{ tooltip: css.tooltip }}>
+              <TableCell className={css.tableCell}>{watcher.file}</TableCell>
+            </Tooltip>
             <TableCell className={css.tableSwicherCell} align="center">
               <Switch
                 id={`switch_notify_${index}`}
@@ -62,7 +61,9 @@ const JsonPageBodyView = () => {
                 onChange={() => console.log('checked2')}
               />
             </TableCell>
-            <TableCell className={css.tableCell}>{watcher.tasks}</TableCell>
+            <Tooltip title={watcher.tasks} classes={{ tooltip: css.tooltip }}>
+              <TableCell className={css.tableCell}>{watcher.tasks}</TableCell>
+            </Tooltip>
           </TableRow>
         ))}
       </TableBody>
