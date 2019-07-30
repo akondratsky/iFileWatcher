@@ -1,10 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-  tableHeader: {
+  tableHeaderCell: {
     color: '#000000',
     backgroundColor: '#e0e0e0',
     fontSize: '1rem',
+  },
+  tableCell: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: '150px',
+  },
+  tableSwicherCell: {
+    width: '80px',
+    maxWidth: '80px',
   },
 }));
 
