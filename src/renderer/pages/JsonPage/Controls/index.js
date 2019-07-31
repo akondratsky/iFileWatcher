@@ -1,4 +1,4 @@
-import { ControlsView } from './ControlsView';
+import { ControlsView } from './JsonPageControlsView';
 
 export { ControlsView };
 
