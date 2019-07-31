@@ -11,6 +11,8 @@ const watchers = [
     notify: true,
     tasks: 'npm i;npm start',
     enabled: false,
+    autoinstall: true,
+    scriptEnabled: true,
   },
   {
     name: 'Finder',
@@ -19,6 +21,8 @@ const watchers = [
     notify: false,
     tasks: 'npm i;npm start',
     enabled: true,
+    autoinstall: false,
+    scriptEnabled: false,
   },
 ];
 
@@ -37,7 +41,10 @@ const JsonPageBodyView = () => {
           <TableCell align="center" className={`${css.tableHeaderCell} ${css.tableSwicherCell}`}>
             Notify
           </TableCell>
-          <TableCell className={css.tableHeaderCell}>Tasks</TableCell>
+          <TableCell align="center" className={`${css.tableHeaderCell} ${css.tableSwicherCell}`}>
+            Install
+          </TableCell>
+          <TableCell className={css.tableHeaderCell}>Script</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -61,8 +68,22 @@ const JsonPageBodyView = () => {
                 onChange={() => console.log('checked2')}
               />
             </TableCell>
+            <TableCell className={css.tableSwicherCell} align="center">
+              <Switch
+                id={`switch_auto_install_${index}`}
+                checked={watcher.notify}
+                onChange={() => console.log('checked2')}
+              />
+            </TableCell>
             <Tooltip title={watcher.tasks} classes={{ tooltip: css.tooltip }}>
-              <TableCell className={css.tableCell}>{watcher.tasks}</TableCell>
+              <TableCell className={css.tableCell}>
+                <Switch
+                  id={`switch_script_enabled_${index}`}
+                  checked={watcher.scriptEnabled}
+                  onChange={() => console.log('checked2')}
+                />
+                {watcher.tasks}
+              </TableCell>
             </Tooltip>
           </TableRow>
         ))}
