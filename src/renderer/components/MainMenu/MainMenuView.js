@@ -21,7 +21,7 @@ const MainMenu = (props) => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <Drawer
         className={classes.drawer}
         variant="persistent"

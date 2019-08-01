@@ -33,6 +33,15 @@ const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }
         <ListItem>
           <TextField fullWidth={true} label="Name" margin="dense" variant="outlined" />
         </ListItem>
+        <ListItem>
+          <TextField
+            fullWidth={true}
+            margin="dense"
+            variant="outlined"
+            label="File to watch"
+            value={watcher.file || 'c:\\git\\my-app\\package.json'}
+          />
+        </ListItem>
         <ListItem className={cs.listItem} style={{ minWidth: '500px' }}>
           <Button variant="contained" onClick={openDialog}>
             Choose file
@@ -45,15 +54,6 @@ const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }
             <span className={cs.separatedLeft}>Script</span>
             <Switch />
           </ListItemText>
-        </ListItem>
-        <ListItem>
-          <TextField
-            fullWidth={true}
-            margin="dense"
-            variant="outlined"
-            label="File to watch"
-            value={watcher.file || 'c:\\git\\my-app\\package.json'}
-          />
         </ListItem>
         <ListItem>
           <TextField

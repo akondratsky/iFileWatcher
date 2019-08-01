@@ -3,12 +3,167 @@ exports["<PageBaseView />/should be renderer correctly(0)"] = {
     "nodeType": "host",
     "type": "div",
     "props": {
-      "className": "makeStyles"
-    }
+      "className": "makeStyles",
+      "children": [
+        {
+          "type": "header",
+          "props": {
+            "children": [
+              {
+                "type": "h1",
+                "props": {
+                  "className": "makeStyles"
+                },
+                "_store": {}
+              },
+              {
+                "type": "div",
+                "props": {
+                  "className": "makeStyles"
+                },
+                "_store": {}
+              }
+            ]
+          },
+          "_store": {}
+        },
+        {
+          "type": "main",
+          "props": {},
+          "_store": {}
+        }
+      ]
+    },
+    "rendered": [
+      {
+        "nodeType": "host",
+        "type": "header",
+        "props": {
+          "children": [
+            {
+              "type": "h1",
+              "props": {
+                "className": "makeStyles"
+              },
+              "_store": {}
+            },
+            {
+              "type": "div",
+              "props": {
+                "className": "makeStyles"
+              },
+              "_store": {}
+            }
+          ]
+        },
+        "rendered": [
+          {
+            "nodeType": "host",
+            "type": "h1",
+            "props": {
+              "className": "makeStyles"
+            }
+          },
+          {
+            "nodeType": "host",
+            "type": "div",
+            "props": {
+              "className": "makeStyles"
+            }
+          }
+        ]
+      },
+      {
+        "nodeType": "host",
+        "type": "main",
+        "props": {}
+      }
+    ]
   },
   "type": "div",
   "props": {
     "className": "makeStyles"
-  }
+  },
+  "children": [
+    {
+      "node": {
+        "nodeType": "host",
+        "type": "header",
+        "props": {
+          "children": [
+            {
+              "type": "h1",
+              "props": {
+                "className": "makeStyles"
+              },
+              "_store": {}
+            },
+            {
+              "type": "div",
+              "props": {
+                "className": "makeStyles"
+              },
+              "_store": {}
+            }
+          ]
+        },
+        "rendered": [
+          {
+            "nodeType": "host",
+            "type": "h1",
+            "props": {
+              "className": "makeStyles"
+            }
+          },
+          {
+            "nodeType": "host",
+            "type": "div",
+            "props": {
+              "className": "makeStyles"
+            }
+          }
+        ]
+      },
+      "type": "header",
+      "props": {},
+      "children": [
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "h1",
+            "props": {
+              "className": "makeStyles"
+            }
+          },
+          "type": "h1",
+          "props": {
+            "className": "makeStyles"
+          }
+        },
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "div",
+            "props": {
+              "className": "makeStyles"
+            }
+          },
+          "type": "div",
+          "props": {
+            "className": "makeStyles"
+          }
+        }
+      ]
+    },
+    {
+      "node": {
+        "nodeType": "host",
+        "type": "main",
+        "props": {}
+      },
+      "type": "main",
+      "props": {}
+    }
+  ]
 };
 
