@@ -23,9 +23,6 @@ const watcherStub2 = {
   script: false,
 };
 
-// const watcherStubs = [watcherStub1, watcherStub2];
-
-
 describe('Watchers reducers', () => {
   it('should add watcher if id not exists', () => {
     const action = {
@@ -38,6 +35,35 @@ describe('Watchers reducers', () => {
     const actual = reducer([{ ...watcherStub1 }], action);
     const correct = [{ ...watcherStub1 }, { ...watcherStub2 }];
 
+    expect(actual.length).to.equal(2);
     expect(actual).to.deep.equal(correct);
+  });
+
+  it('should change watcher if id exists', () => {
+    const customWatcherStub = {
+      id: watcherStub2.id,
+      enabled: false,
+      name: 'updated watcher',
+      file: 'g:\\updated\\package.json',
+      task: 'npm run updated',
+      notify: true,
+      install: false,
+      script: true,
+    };
+
+    const action = {
+      type: ActionTypes.JSON_SAVE_WATCHER,
+      payload: {
+        ...customWatcherStub,
+      },
+    };
+
+    const actual = reducer([{ ...watcherStub1 }, { ...watcherStub2 }], action);
+    // const correct = [{ ...watcherStub1 }, { ...customWatcherStub }];
+
+    expect(actual.length).to.equal(2);
+    expect(actual.find((watcher) => watcher.id === watcherStub2.id)).to.deep.equal(
+      customWatcherStub,
+    );
   });
 });
