@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import WatcherEditor from './WatcherEditor';
+import WatcherEditor from 'Components/WatcherEditor';
 import useStyles from './JsonPageBodyStyles';
 import {
   Table,
