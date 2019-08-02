@@ -1,26 +1,27 @@
 import { handleActions } from 'redux-actions';
 import { saveWatcher, deleteWatcher } from 'Actions/watchers';
 
+const getStoreIndexById = (state, id) => state.findIndex((watcher) => watcher.id === id);
+
 export default handleActions(
   {
-    [saveWatcher]: (state, action) => {
-      const { id } = action.payload;
-      const watcherIndex = state.findIndex((watcher) => watcher.id === id);
+    [saveWatcher]: (state, { payload: watcher }) => {
+      const { id } = watcher;
+      const storeIndex = getStoreIndexById(state, id);
 
-      if (~watcherIndex) {
+      if (~storeIndex) {
         const [...newState] = state;
-        newState.splice(watcherIndex, 1, { ...action.payload });
+        newState.splice(storeIndex, 1, { ...watcher });
         return newState;
       }
 
-      return [...state, { ...action.payload }];
+      return [...state, { ...watcher }];
     },
 
-    [deleteWatcher]: (state, action) => {
-      const id = action.payload;
-      const watcherIndex = state.findIndex((watcher) => watcher.id === id);
+    [deleteWatcher]: (state, { payload: id }) => {
+      const storeIndex = getStoreIndexById(state, id);
       const [...newState] = state;
-      if (~watcherIndex) newState.splice(watcherIndex, 1);
+      if (~storeIndex) newState.splice(storeIndex, 1);
       return newState;
     },
   },
