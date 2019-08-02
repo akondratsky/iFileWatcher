@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 
 export const ActionTypes = {
-  JSON_ADD_WATCHER: 'ADD_WATCHER',
+  JSON_SAVE_WATCHER: 'JSON_ADD_WATCHER',
 };
 
-export const addWatcher = createAction(ActionTypes.JSON_ADD_WATCHER, (watcher) => watcher);
+export const saveWatcher = createAction(ActionTypes.JSON_SAVE_WATCHER, (watcher) => watcher);
