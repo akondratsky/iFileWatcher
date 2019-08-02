@@ -59,11 +59,20 @@ describe('Watchers reducers', () => {
     };
 
     const actual = reducer([{ ...watcherStub1 }, { ...watcherStub2 }], action);
-    // const correct = [{ ...watcherStub1 }, { ...customWatcherStub }];
 
     expect(actual.length).to.equal(2);
     expect(actual.find((watcher) => watcher.id === watcherStub2.id)).to.deep.equal(
       customWatcherStub,
     );
+  });
+
+  it('should delete watcher', () => {
+    const initialState = [{ ...watcherStub1 }, { ...watcherStub2 }];
+    const action = {
+      type: ActionTypes.JSON_SAVE_WATCHER,
+      payload: watcherStub2.id,
+    };
+    const actualState = reducer(initialState, action);
+    expect(actualState).to.deep.equal([{ ...watcherStub1 }]);
   });
 });
