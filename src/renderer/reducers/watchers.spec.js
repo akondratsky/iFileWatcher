@@ -69,7 +69,7 @@ describe('Watchers reducers', () => {
   it('should delete watcher', () => {
     const initialState = [{ ...watcherStub1 }, { ...watcherStub2 }];
     const action = {
-      type: ActionTypes.JSON_SAVE_WATCHER,
+      type: ActionTypes.JSON_DELETE_WATCHER,
       payload: watcherStub2.id,
     };
     const actualState = reducer(initialState, action);

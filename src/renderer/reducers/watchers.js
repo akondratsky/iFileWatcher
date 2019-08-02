@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { saveWatcher } from 'Actions/watchers';
+import { saveWatcher, deleteWatcher } from 'Actions/watchers';
 
 export default handleActions(
   {
@@ -14,6 +14,14 @@ export default handleActions(
       }
 
       return [...state, { ...action.payload }];
+    },
+
+    [deleteWatcher]: (state, action) => {
+      const id = action.payload;
+      const watcherIndex = state.findIndex((watcher) => watcher.id === id);
+      const [...newState] = state;
+      if (~watcherIndex) newState.splice(watcherIndex, 1);
+      return newState;
     },
   },
   {},
