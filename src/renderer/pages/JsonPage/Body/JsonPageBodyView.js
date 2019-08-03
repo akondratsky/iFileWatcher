@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
-import WatcherEditor from 'Components/WatcherEditor';
+import { WatcherEditor } from 'Components/WatcherEditor';
 import useStyles from './JsonPageBodyStyles';
+import clsx from 'clsx';
 import {
   Table,
   Switch,
@@ -10,6 +11,7 @@ import {
   TableRow,
   Tooltip,
 } from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
 
 const watchers = [
   {
@@ -35,6 +37,7 @@ const watchers = [
 
 const JsonPageBodyView = () => {
   const css = useStyles();
+  const tableSwitcherCellClass = clsx(css.tableHeaderCell, css.tableSwicherCell);
 
   return (
     <Fragment>
@@ -42,18 +45,19 @@ const JsonPageBodyView = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell align="center" className={`${css.tableHeaderCell} ${css.tableSwicherCell}`}>
+            <TableCell align="center" className={tableSwitcherCellClass}>
               Enabled
             </TableCell>
             <TableCell className={css.tableHeaderCell}>Name</TableCell>
             <TableCell className={css.tableHeaderCell}>File</TableCell>
-            <TableCell align="center" className={`${css.tableHeaderCell} ${css.tableSwicherCell}`}>
+            <TableCell align="center" className={tableSwitcherCellClass}>
               Notify
             </TableCell>
-            <TableCell align="center" className={`${css.tableHeaderCell} ${css.tableSwicherCell}`}>
+            <TableCell align="center" className={tableSwitcherCellClass}>
               Install
             </TableCell>
             <TableCell className={css.tableHeaderCell}>Script</TableCell>
+            <TableCell className={css.tableHeaderCell}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -94,6 +98,9 @@ const JsonPageBodyView = () => {
                   {watcher.tasks}
                 </TableCell>
               </Tooltip>
+              <TableCell className={css.tableCell}>
+                <Icon>add_circle</Icon>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
