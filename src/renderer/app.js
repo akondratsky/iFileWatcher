@@ -1,4 +1,6 @@
 import 'typeface-roboto';
+import 'material-design-icons-iconfont/dist/material-design-icons.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
