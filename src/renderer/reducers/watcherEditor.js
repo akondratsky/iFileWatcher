@@ -13,11 +13,18 @@ const defaultNewWatcher = {
 
 export default handleActions(
   {
-    [loadWatcherToEditor]: (state, { payload: watcher = { ...defaultNewWatcher } }) => {
-      return { ...watcher };
+    [loadWatcherToEditor]: (state, { payload: watcher }) => {
+      const editedWatcher = watcher ? { ...watcher } : { ...defaultNewWatcher };
+      return {
+        ...state,
+        watcher: editedWatcher,
+      };
     },
     [setWatcherEditorIsOpened]: (state, { payload: isOpened }) => {
-      return isOpened;
+      return {
+        ...state,
+        isOpened,
+      };
     },
   },
   {},

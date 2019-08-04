@@ -29,8 +29,8 @@ describe('Watcher Editor reducers', () => {
       type: ActionTypes.WATCHEREDITOR_LOAD_WATCHER,
       payload: { ...watcherStub1 },
     };
-    const actualState = watcherReducer({ ...watcherStub2 }, loadAction);
-    const correctState = { ...watcherStub1 };
+    const actualState = watcherReducer({ watcher: { ...watcherStub2 } }, loadAction);
+    const correctState = { watcher: { ...watcherStub1 } };
 
     expect(actualState).to.deep.equal(correctState);
   });
@@ -41,7 +41,7 @@ describe('Watcher Editor reducers', () => {
       payload: true,
     };
     const actualState = watcherReducer(false, openAction);
-    const correctState = true;
-    expect(actualState).to.equal(correctState);
+    const correctState = { isOpened: true };
+    expect(actualState).to.deep.equal(correctState);
   });
 });
