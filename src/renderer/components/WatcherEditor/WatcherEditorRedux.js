@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import WatcherEditorView from './WatcherEditorView';
 
-let opened = true;
+let opened = false;
 
 const mapStateToProps = () => ({
   isEditorOpened: opened,

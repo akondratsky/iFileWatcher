@@ -1,5 +1,3 @@
-import BodyView from './JsonPageBodyView';
+import JsonPageBodyView from './JsonPageBodyView';
 
-export { BodyView };
-
-export default BodyView;
+export default JsonPageBodyView;

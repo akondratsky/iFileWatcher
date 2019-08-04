@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { WatcherEditor } from 'Components/WatcherEditor';
+import WatcherEditor from 'Components/WatcherEditor';
 import useStyles from './JsonPageBodyStyles';
 import clsx from 'clsx';
 import {
@@ -98,8 +98,9 @@ const JsonPageBodyView = () => {
                   {watcher.tasks}
                 </TableCell>
               </Tooltip>
-              <TableCell className={css.tableCell}>
-                <Icon>add_circle</Icon>
+              <TableCell className={clsx(css.tableCell, css.actionPane)}>
+                <Icon className={css.actionButton}>edit</Icon>
+                <Icon className={css.actionButton}>delete</Icon>
               </TableCell>
             </TableRow>
           ))}
