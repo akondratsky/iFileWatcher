@@ -1,5 +1,3 @@
-import { ControlsView } from './JsonPageControlsView';
+import JsonPageControlsRedux from './JsonPageControlsRedux';
 
-export { ControlsView };
-
-export default ControlsView;
+export default JsonPageControlsRedux;

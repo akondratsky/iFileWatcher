@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 
-const createNewWatcher = () => console.log('watcher creating not implemented yet');
-
-export const ControlsView = () => (
-  <Button color="default" variant="contained" size="small" onClick={createNewWatcher}>
+const JsonPageControlsView = ({ handleCreateNewWatcher }) => (
+  <Button color="default" variant="contained" size="small" onClick={handleCreateNewWatcher}>
     Add watcher
   </Button>
 );
+
+export default JsonPageControlsView;

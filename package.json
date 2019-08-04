@@ -72,6 +72,7 @@
     "start": "node ./dev/dev.js",
     "test": "npm run test:renderer && npm run test:main",
     "test:renderer": "electron-mocha --file mocha.config.js --require mocha-snapshots --renderer --timeout 10000 \"src/renderer/**/*.spec.js\"",
+    "test:renderer:watch": "electron-mocha --watch --file mocha.config.js --require mocha-snapshots --renderer --timeout 10000 \"src/renderer/**/*.spec.js\"",
     "test:main": "electron-mocha --file mocha.config.js --timeout 10000 \"src/main/**/*.spec.js\"",
     "update-snapshots": "electron-mocha --file mocha.config.js --require mocha-snapshots --update --renderer --timeout 10000 \"src/**/*.spec.js\"",
     "lint": "eslint --no-ignore src *.js",
