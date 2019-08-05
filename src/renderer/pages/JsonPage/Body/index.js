@@ -1,3 +1,3 @@
-import JsonPageBodyView from './JsonPageBodyView';
+import JsonPageBodyRedux from './JsonPageBodyRedux';
 
-export default JsonPageBodyView;
+export default JsonPageBodyRedux;

@@ -13,29 +13,7 @@ import {
 } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 
-const watchers = [
-  {
-    name: 'WebApp',
-    file: 'c:\\git\\package.json',
-    notify: true,
-    tasks: 'npm i;npm start',
-    enabled: false,
-    autoinstall: true,
-    scriptEnabled: true,
-  },
-  {
-    name: 'Finder',
-    file:
-      'c:\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\git\\package.json',
-    notify: false,
-    tasks: 'npm i;npm start',
-    enabled: true,
-    autoinstall: false,
-    scriptEnabled: false,
-  },
-];
-
-const JsonPageBodyView = () => {
+const JsonPageBodyView = ({ watchers }) => {
   const css = useStyles();
   const tableSwitcherCellClass = clsx(css.tableHeaderCell, css.tableSwicherCell);
 
@@ -88,7 +66,7 @@ const JsonPageBodyView = () => {
                   onChange={() => console.log('checked2')}
                 />
               </TableCell>
-              <Tooltip title={watcher.tasks} classes={{ tooltip: css.tooltip }}>
+              <Tooltip title={watcher.task} classes={{ tooltip: css.tooltip }}>
                 <TableCell className={css.tableCell}>
                   <Switch
                     id={`switch_script_enabled_${index}`}
