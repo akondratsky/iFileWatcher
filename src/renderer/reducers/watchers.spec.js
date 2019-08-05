@@ -23,22 +23,17 @@ const watcherStub2 = {
   script: false,
 };
 
+const watcherStub3 = {
+  enabled: true,
+  name: 'new watcher 3',
+  file: 'd:\\nofolder\\package.json',
+  task: 'npm start',
+  notify: false,
+  install: true,
+  script: false,
+};
+
 describe('Watchers reducers', () => {
-  it('should add watcher if id not exists', () => {
-    const action = {
-      type: ActionTypes.JSON_SAVE_WATCHER,
-      payload: {
-        ...watcherStub2,
-      },
-    };
-
-    const actual = reducer([{ ...watcherStub1 }], action);
-    const correct = [{ ...watcherStub1 }, { ...watcherStub2 }];
-
-    expect(actual.length).to.equal(2);
-    expect(actual).to.deep.equal(correct);
-  });
-
   it('should change watcher if id exists', () => {
     const customWatcherStub = {
       id: watcherStub2.id,
@@ -66,7 +61,7 @@ describe('Watchers reducers', () => {
     );
   });
 
-  it('should delete watcher', () => {
+  it('should delete watcher by id', () => {
     const initialState = [{ ...watcherStub1 }, { ...watcherStub2 }];
     const action = {
       type: ActionTypes.JSON_DELETE_WATCHER,
@@ -74,5 +69,19 @@ describe('Watchers reducers', () => {
     };
     const actualState = reducer(initialState, action);
     expect(actualState).to.deep.equal([{ ...watcherStub1 }]);
+  });
+
+  it('should create new watcher with new id if no id', () => {
+    const action = {
+      type: ActionTypes.JSON_SAVE_WATCHER,
+      payload: {
+        ...watcherStub3,
+      },
+    };
+
+    const actual = reducer([{ ...watcherStub2 }, { ...watcherStub1 }], action);
+    const correct = [{ ...watcherStub2 }, { ...watcherStub1 }, { ...watcherStub3, id: 43 }];
+
+    expect(actual).to.deep.equal(correct);
   });
 });

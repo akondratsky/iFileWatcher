@@ -15,7 +15,14 @@ export default handleActions(
         return newState;
       }
 
-      return [...state, { ...watcher }];
+      let newId;
+      if (state.length) {
+        newId = state[state.length - 1].id + 1;
+      } else {
+        newId = 1;
+      }
+
+      return [...state, { ...watcher, id: newId }];
     },
 
     [deleteWatcher]: (state, { payload: id }) => {
