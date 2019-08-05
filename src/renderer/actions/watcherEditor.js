@@ -26,24 +26,3 @@ export const setWatcherEditorIsOpened = createAction(
   ActionTypes.WATCHEREDITOR_SET_WATCHER_EDITOR_OPENED,
   (isOpened) => isOpened,
 );
-
-export const setWatcherName = createAction(ActionTypes.WATCHEREDITOR_SET_NAME, (name) => name);
-
-export const setWatcherFile = createAction(ActionTypes.WATCHEREDITOR_SET_FILE, (file) => file);
-
-export const setWatcherIsInstall = createAction(
-  ActionTypes.WATCHEREDITOR_SET_IS_INSTALL,
-  (install) => install,
-);
-
-export const setWatcherIsNotify = createAction(
-  ActionTypes.WATCHEREDITOR_SET_IS_NOTIFY,
-  (notify) => notify,
-);
-
-export const setWatcherIsScript = createAction(
-  ActionTypes.WATCHEREDITOR_SET_IS_SCRIPT,
-  (isScript) => isScript,
-);
-
-export const setWatcherTask = createAction(ActionTypes.WATCHEREDITOR_SET_TASK, (task) => task);

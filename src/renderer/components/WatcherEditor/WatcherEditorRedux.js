@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import WatcherEditorView from './WatcherEditorView';
 import { getIsWatcherEditorOpened, getEditedWatcher } from 'Selectors/watcherEditor';
 import { setWatcherEditorIsOpened } from 'Actions/watcherEditor';
+import { saveWatcher } from 'Actions/watchers';
 
 const mapStateToProps = (state) => ({
   isEditorOpened: getIsWatcherEditorOpened(state),
@@ -10,7 +11,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleClose: () => dispatch(setWatcherEditorIsOpened(false)),
-  saveWatcher: () => console.log('saving not implemented'),
+  saveWatcher: (watcher) => dispatch(saveWatcher(watcher)),
 });
 
 export default connect(

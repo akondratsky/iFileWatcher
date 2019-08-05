@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Dialog,
@@ -11,21 +11,54 @@ import {
   ListItemSecondaryAction,
 } from '@material-ui/core';
 import useStyles from './WatcherEditorStyles';
+import { defaultNewWatcher } from 'Constants/defaultValues';
 import { remote } from 'electron';
 const { dialog } = remote;
 
-const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }) => {
+const WatcherEditorView = ({
+  isEditorOpened,
+  handleClose,
+  watcher = defaultNewWatcher,
+  saveWatcher,
+}) => {
+  const [name, setName] = useState(watcher.name);
+  const [file, setFile] = useState(watcher.file);
+  const [notify, setNotify] = useState(watcher.notify);
+  const [script, setScript] = useState(watcher.script);
+  const [install, setInstall] = useState(watcher.install);
+  const [task, setTask] = useState(watcher.task);
+
+  useEffect(() => {
+    setName(watcher.name);
+    setFile(watcher.file);
+    setNotify(watcher.notify);
+    setScript(watcher.script);
+    setInstall(watcher.install);
+    setTask(watcher.task);
+  }, [watcher]);
+
   const cs = useStyles();
-  const handleSaveClick = () => saveWatcher(watcher);
+  const handleSaveClick = () => {
+    saveWatcher({
+      id: watcher.id,
+      enabled: true,
+      name,
+      file,
+      notify,
+      script,
+      install,
+      task,
+    });
+  };
   const openDialog = () => {
-    const packageJson = dialog.showOpenDialog({
+    const openedFile = dialog.showOpenDialog({
       title: 'Add new file to watch',
       properties: ['openFile'],
       filters: [{ name: '*.json', extensions: ['json'] }],
     });
 
-    if (packageJson) {
-      console.log('changing file not implemented yet');
+    if (openedFile) {
+      setFile(openedFile);
     }
   };
 
@@ -34,7 +67,14 @@ const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }
       <DialogTitle>Add new package.json</DialogTitle>
       <List className={cs.fullwidth}>
         <ListItem>
-          <TextField fullWidth={true} label="Name" margin="dense" variant="outlined" />
+          <TextField
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            fullWidth={true}
+            label="Name"
+            margin="dense"
+            variant="outlined"
+          />
         </ListItem>
         <ListItem>
           <TextField
@@ -42,7 +82,7 @@ const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }
             margin="dense"
             variant="outlined"
             label="File to watch"
-            value={watcher.file}
+            value={file}
           />
         </ListItem>
         <ListItem className={cs.listItem} style={{ minWidth: '500px' }}>
@@ -51,11 +91,11 @@ const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }
           </Button>
           <ListItemText>
             <span className={cs.separatedLeft}>Notify</span>
-            <Switch checked={watcher.notify} />
+            <Switch checked={notify} onChange={(e) => setNotify(e.target.checked)} />
             <span className={cs.separatedLeft}>Install</span>
-            <Switch checked={watcher.install} />
+            <Switch checked={install} onChange={(e) => setInstall(e.target.checked)} />
             <span className={cs.separatedLeft}>Script</span>
-            <Switch checked={watcher.script} />
+            <Switch checked={script} onChange={(e) => setScript(e.target.checked)} />
           </ListItemText>
         </ListItem>
         <ListItem>
@@ -63,7 +103,8 @@ const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }
             fullWidth={true}
             label="Task"
             variant="outlined"
-            defaultValue="npm run watch"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
             margin="dense"
           />
         </ListItem>
