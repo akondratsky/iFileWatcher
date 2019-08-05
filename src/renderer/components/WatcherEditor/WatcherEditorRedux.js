@@ -1,18 +1,16 @@
 import { connect } from 'react-redux';
 import WatcherEditorView from './WatcherEditorView';
+import { getIsWatcherEditorOpened, getEditedWatcher } from 'Selectors/watcherEditor';
+import { setWatcherEditorIsOpened } from 'Actions/watcherEditor';
 
-let opened = false;
-
-const mapStateToProps = () => ({
-  isEditorOpened: opened,
-  watcher: {
-    name: 'New watcher',
-  },
+const mapStateToProps = (state) => ({
+  isEditorOpened: getIsWatcherEditorOpened(state),
+  watcher: getEditedWatcher(state),
 });
 
-const mapDispatchToProps = () => ({
-  handleClose: () => (opened = false),
-  saveWatcher: (watcher) => console.log(watcher),
+const mapDispatchToProps = (dispatch) => ({
+  handleClose: () => dispatch(setWatcherEditorIsOpened(false)),
+  saveWatcher: () => console.log('saving not implemented'),
 });
 
 export default connect(

@@ -27,5 +27,7 @@ export default handleActions(
       };
     },
   },
-  {},
+  {
+    isOpened: false,
+  },
 );

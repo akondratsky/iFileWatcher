@@ -23,7 +23,10 @@ const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }
       properties: ['openFile'],
       filters: [{ name: '*.json', extensions: ['json'] }],
     });
-    if (packageJson) watcher.file = packageJson;
+
+    if (packageJson) {
+      console.log('changing file not implemented yet');
+    }
   };
 
   return (
@@ -39,7 +42,7 @@ const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }
             margin="dense"
             variant="outlined"
             label="File to watch"
-            value={watcher.file || 'c:\\git\\my-app\\package.json'}
+            value={watcher.file}
           />
         </ListItem>
         <ListItem className={cs.listItem} style={{ minWidth: '500px' }}>
@@ -48,11 +51,11 @@ const WatcherEditorView = ({ isEditorOpened, handleClose, watcher, saveWatcher }
           </Button>
           <ListItemText>
             <span className={cs.separatedLeft}>Notify</span>
-            <Switch />
+            <Switch checked={watcher.notify} />
             <span className={cs.separatedLeft}>Install</span>
-            <Switch />
+            <Switch checked={watcher.install} />
             <span className={cs.separatedLeft}>Script</span>
-            <Switch />
+            <Switch checked={watcher.script} />
           </ListItemText>
         </ListItem>
         <ListItem>
