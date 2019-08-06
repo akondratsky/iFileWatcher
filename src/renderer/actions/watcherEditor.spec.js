@@ -3,6 +3,7 @@ import {
   setWatcherEditorIsOpened,
   loadWatcherToEditor,
   openEditorToCreateNewWatcher,
+  openEditorToEditWatcherById,
 } from './watcherEditor';
 
 const defaultNewWatcher = {
@@ -61,5 +62,20 @@ describe('Actions / watcher editor', () => {
       },
     ];
     expect(store.getActions()).to.deep.equal(expectedActions);
+  });
+
+  it('should open watcher by id', () => {
+    store.dispatch(openEditorToEditWatcherById(12));
+    const expectedActions = [
+      {
+        type: ActionTypes.WATCHEREDITOR_LOAD_WATCHER,
+        payload: {},
+      },
+      {
+        type: ActionTypes.WATCHEREDITOR_SET_WATCHER_EDITOR_OPENED,
+        payload: true,
+      },
+    ];
+    expect(true).to.deep.equal(false);
   });
 });
