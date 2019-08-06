@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   tableSwicherCell: {
     width: '80px',
     maxWidth: '80px',
+    textAlign: 'center',
   },
   tooltip: {
     maxWidth: '500px',

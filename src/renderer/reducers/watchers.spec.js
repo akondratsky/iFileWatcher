@@ -33,6 +33,17 @@ const watcherStub3 = {
   script: false,
 };
 
+const watcherStub4 = {
+  id: 777,
+  enabled: false,
+  name: 'watcher777',
+  script: false,
+  file: 'd:\\nofolder\\package.json',
+  task: 'npm run fantasy',
+  notify: false,
+  install: false,
+};
+
 describe('Watchers reducers', () => {
   it('should change watcher if id exists', () => {
     const customWatcherStub = {
@@ -81,6 +92,54 @@ describe('Watchers reducers', () => {
 
     const actual = reducer([{ ...watcherStub2 }, { ...watcherStub1 }], action);
     const correct = [{ ...watcherStub2 }, { ...watcherStub1 }, { ...watcherStub3, id: 43 }];
+
+    expect(actual).to.deep.equal(correct);
+  });
+
+  it('should update property "Enabled" of watcher', () => {
+    const action = {
+      type: ActionTypes.JSON_SET_WATCHER_ENABLED_BY_ID,
+      payload: { id: 777, enabled: true },
+    };
+
+    const actual = reducer([{ ...watcherStub1 }, { ...watcherStub4 }], action);
+    const correct = [{ ...watcherStub1 }, { ...watcherStub4, enabled: true }];
+
+    expect(actual).to.deep.equal(correct);
+  });
+
+  it('should update property "Notify" of watcher', () => {
+    const action = {
+      type: ActionTypes.JSON_SET_WATCHER_NOTIFY_BY_ID,
+      payload: { id: 777, notify: true },
+    };
+
+    const actual = reducer([{ ...watcherStub1 }, { ...watcherStub4 }], action);
+    const correct = [{ ...watcherStub1 }, { ...watcherStub4, notify: true }];
+
+    expect(actual).to.deep.equal(correct);
+  });
+
+  it('should update property "Install" of watcher', () => {
+    const action = {
+      type: ActionTypes.JSON_SET_WATCHER_INSTALL_BY_ID,
+      payload: { id: 777, install: true },
+    };
+
+    const actual = reducer([{ ...watcherStub1 }, { ...watcherStub4 }], action);
+    const correct = [{ ...watcherStub1 }, { ...watcherStub4, install: true }];
+
+    expect(actual).to.deep.equal(correct);
+  });
+
+  it('should update property "Script" of watcher', () => {
+    const action = {
+      type: ActionTypes.JSON_SET_WATCHER_SCRIPT_BY_ID,
+      payload: { id: 777, script: true },
+    };
+
+    const actual = reducer([{ ...watcherStub1 }, { ...watcherStub4 }], action);
+    const correct = [{ ...watcherStub1 }, { ...watcherStub4, script: true }];
 
     expect(actual).to.deep.equal(correct);
   });

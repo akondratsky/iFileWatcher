@@ -1,4 +1,12 @@
-import { ActionTypes, saveWatcher, deleteWatcher } from './watchers';
+import {
+  ActionTypes,
+  deleteWatcher,
+  saveWatcher,
+  setWatcherEnabledById,
+  setWatcherNotifyById,
+  setWatcherRunScriptById,
+  setWatcherInstallById,
+} from './watchers';
 
 const watcherStub = {
   id: 42,
@@ -26,7 +34,6 @@ describe('Watchers actions', () => {
         payload: { ...watcherStub },
       },
     ];
-
     expect(store.getActions()).deep.equal(expectedActions);
   });
 
@@ -38,7 +45,50 @@ describe('Watchers actions', () => {
         payload: watcherStub.id,
       },
     ];
+    expect(store.getActions()).deep.equal(expectedActions);
+  });
 
+  it('should change "Enabled" property of watcher by id', () => {
+    store.dispatch(setWatcherEnabledById(42, true));
+    const expectedActions = [
+      {
+        type: ActionTypes.JSON_SET_WATCHER_ENABLED_BY_ID,
+        payload: { id: 42, enabled: true },
+      },
+    ];
+    expect(store.getActions()).deep.equal(expectedActions);
+  });
+
+  it('should change "Notify" property of watcher by id', () => {
+    store.dispatch(setWatcherNotifyById(42, true));
+    const expectedActions = [
+      {
+        type: ActionTypes.JSON_SET_WATCHER_NOTIFY_BY_ID,
+        payload: { id: 42, notify: true },
+      },
+    ];
+    expect(store.getActions()).deep.equal(expectedActions);
+  });
+
+  it('should change "Script run" property of watcher by id', () => {
+    store.dispatch(setWatcherRunScriptById(42, true));
+    const expectedActions = [
+      {
+        type: ActionTypes.JSON_SET_WATCHER_SCRIPT_BY_ID,
+        payload: { id: 42, script: true },
+      },
+    ];
+    expect(store.getActions()).deep.equal(expectedActions);
+  });
+
+  it('should change "Script run" property of watcher by id', () => {
+    store.dispatch(setWatcherInstallById(42, true));
+    const expectedActions = [
+      {
+        type: ActionTypes.JSON_SET_WATCHER_INSTALL_BY_ID,
+        payload: { id: 42, install: true },
+      },
+    ];
     expect(store.getActions()).deep.equal(expectedActions);
   });
 });
