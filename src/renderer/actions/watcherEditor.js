@@ -26,3 +26,8 @@ export const setWatcherEditorIsOpened = createAction(
   ActionTypes.WATCHEREDITOR_SET_WATCHER_EDITOR_OPENED,
   (isOpened) => isOpened,
 );
+
+export const openEditorToEditWatcher = (watcher) => (dispatch) => {
+  dispatch(loadWatcherToEditor(watcher));
+  dispatch(setWatcherEditorIsOpened(true));
+};

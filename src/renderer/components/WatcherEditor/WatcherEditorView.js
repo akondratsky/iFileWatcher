@@ -22,6 +22,7 @@ const WatcherEditorView = ({
   saveWatcher,
 }) => {
   const [name, setName] = useState(watcher.name);
+  const [enabled, setEnabled] = useState(watcher.enabled);
   const [file, setFile] = useState(watcher.file);
   const [notify, setNotify] = useState(watcher.notify);
   const [script, setScript] = useState(watcher.script);
@@ -29,6 +30,7 @@ const WatcherEditorView = ({
   const [task, setTask] = useState(watcher.task);
 
   useEffect(() => {
+    setEnabled(watcher.enabled);
     setName(watcher.name);
     setFile(watcher.file);
     setNotify(watcher.notify);
@@ -41,7 +43,7 @@ const WatcherEditorView = ({
   const handleSaveClick = () => {
     saveWatcher({
       id: watcher.id,
-      enabled: true,
+      enabled,
       name,
       file,
       notify,
@@ -49,6 +51,7 @@ const WatcherEditorView = ({
       install,
       task,
     });
+    handleClose();
   };
   const openDialog = () => {
     const openedFile = dialog.showOpenDialog({
@@ -66,7 +69,7 @@ const WatcherEditorView = ({
     <Dialog open={isEditorOpened} onClose={handleClose}>
       <DialogTitle>Add new package.json</DialogTitle>
       <List className={cs.fullwidth}>
-        <ListItem>
+        <ListItem className={cs.listItem}>
           <TextField
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -75,6 +78,8 @@ const WatcherEditorView = ({
             margin="dense"
             variant="outlined"
           />
+          <span className={cs.separatedLeft}>Enabled</span>
+          <Switch checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
         </ListItem>
         <ListItem>
           <TextField

@@ -19,6 +19,8 @@ const JsonPageBodyView = ({
   handleWatcherNotifyChange,
   handleWatcherInstallChange,
   handleWatcherRunScriptChange,
+  handleEditWatcher,
+  handleDeleteWatcher,
 }) => {
   const css = useStyles();
   const switcherHeaderCellClass = clsx(css.tableHeaderCell, css.tableSwicherCell);
@@ -83,8 +85,12 @@ const JsonPageBodyView = ({
                 </TableCell>
               </Tooltip>
               <TableCell className={clsx(css.tableCell, css.actionPane)}>
-                <Icon className={css.actionButton}>edit</Icon>
-                <Icon className={css.actionButton}>delete</Icon>
+                <Icon className={css.actionButton} onClick={() => handleEditWatcher(watcher)}>
+                  edit
+                </Icon>
+                <Icon className={css.actionButton} onClick={() => handleDeleteWatcher()}>
+                  delete
+                </Icon>
               </TableCell>
             </TableRow>
           ))}

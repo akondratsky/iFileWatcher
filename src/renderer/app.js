@@ -10,6 +10,7 @@ import routes from './routes';
 import configureStore from './store';
 import CssBaseLine from '@material-ui/core/CssBaseline';
 import MainMenu from 'Components/MainMenu';
+import ConfirmDialog from 'Components/ConfirmDialog';
 
 const syncHistoryWithStore = (store, history) => {
   const { router } = store.getState();
@@ -32,6 +33,7 @@ ReactDOM.render(
     <MainMenu>
       <ConnectedRouter history={routerHistory}>{routes}</ConnectedRouter>
     </MainMenu>
+    <ConfirmDialog />
   </Provider>,
   rootElement,
 );
