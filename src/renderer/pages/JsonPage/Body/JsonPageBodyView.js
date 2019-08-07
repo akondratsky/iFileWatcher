@@ -88,7 +88,7 @@ const JsonPageBodyView = ({
                 <Icon className={css.actionButton} onClick={() => handleEditWatcher(watcher)}>
                   edit
                 </Icon>
-                <Icon className={css.actionButton} onClick={() => handleDeleteWatcher()}>
+                <Icon className={css.actionButton} onClick={() => handleDeleteWatcher(watcher.id)}>
                   delete
                 </Icon>
               </TableCell>

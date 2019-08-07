@@ -3,6 +3,7 @@ import { getAllWatchers } from 'Selectors/watchers';
 import { openEditorToEditWatcher } from 'Actions/watcherEditor';
 import JsonPageBodyView from './JsonPageBodyView';
 import {
+  deleteWatcher,
   setWatcherEnabledById,
   setWatcherNotifyById,
   setWatcherInstallById,
@@ -20,13 +21,13 @@ const mapDispatchToProps = (dispatch) => ({
   handleWatcherInstallChange: (id, install) => dispatch(setWatcherInstallById(id, install)),
   handleWatcherRunScriptChange: (id, script) => dispatch(setWatcherRunScriptById(id, script)),
   handleEditWatcher: (watcher) => dispatch(openEditorToEditWatcher(watcher)),
-  handleDeleteWatcher: () => {
+  handleDeleteWatcher: (id) => {
     const options = {
       title: 'testing modal window',
       text: 'Text should be displayed',
       buttons: [
-        { title: 'Ok', handler: () => console.log('ok handled') },
-        { title: 'Cancel', handler: () => console.log('cancel handled') },
+        { title: 'Ok', handler: () => dispatch(deleteWatcher(id)) },
+        { title: 'Cancel', handler: null },
       ],
     };
     dispatch(openConfirmDialog(options));

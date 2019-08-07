@@ -20,7 +20,7 @@ const ConfirmDialogView = ({ opened, title, text, buttons, onClose }) => {
           buttons.map((btn, index) => (
             <Button
               onClick={useCallback(() => {
-                btn.handler();
+                if (btn.handler) btn.handler();
                 onClose();
               }, [btn.handler, onClose])}
               variant="outlined"
