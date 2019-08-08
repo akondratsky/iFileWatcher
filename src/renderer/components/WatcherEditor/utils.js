@@ -2,7 +2,9 @@ import fs from 'fs';
 import * as Strings from 'Constants/strings';
 import { MAX_FILE_SIZE } from 'Constants/util';
 
-const checkIsFileValid = (filename) => {
+export const checkIsFileValid = (filename) => {
+  if (!filename) return Strings.FILE_FIELD_SHOULD_NOT_BE_EMPTY;
+
   try {
     const stats = fs.statSync(filename);
     if (stats.size > MAX_FILE_SIZE) {
@@ -22,6 +24,15 @@ const checkIsFileValid = (filename) => {
   return null;
 };
 
+export const checkIsWatcherNameValid = (value) => {
+  const name = value.trim();
+  if (!name) {
+    return Strings.NAME_COULD_NOT_BE_EMPTY;
+  } else if (name.length > 30) {
+    return Strings.NAME_SHOULD_NOT_BE_TOO_LONG;
+  }
+};
+
 export const getWatcherValidation = (watcher) => {
   const validation = {
     isValid: true,
@@ -29,23 +40,16 @@ export const getWatcherValidation = (watcher) => {
     fileMsg: null,
   };
 
-  if (!watcher.name) {
+  const nameError = checkIsWatcherNameValid(watcher.name);
+  if (nameError) {
     validation.isValid = false;
-    validation.nameMsg = Strings.NAME_COULD_NOT_BE_EMPTY;
-  } else if (watcher.name.length > 30) {
-    validation.isValid = false;
-    validation.nameMsg = Strings.NAME_SHOULD_NOT_BE_TOO_LONG;
+    validation.nameMsg = nameError;
   }
 
-  if (!watcher.file) {
+  const fileError = checkIsFileValid(watcher.file);
+  if (fileError) {
     validation.isValid = false;
-    validation.fileMsg = Strings.FILE_FIELD_SHOULD_NOT_BE_EMPTY;
-  } else {
-    const fileError = checkIsFileValid(watcher.file);
-    if (fileError) {
-      validation.isValid = false;
-      validation.fileMsg = fileError;
-    }
+    validation.fileMsg = fileError;
   }
 
   return validation;

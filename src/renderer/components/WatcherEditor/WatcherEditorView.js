@@ -9,9 +9,11 @@ import {
   ListItemText,
   Switch,
   ListItemSecondaryAction,
+  Typography,
 } from '@material-ui/core';
 import useStyles from './WatcherEditorStyles';
 import { defaultNewWatcher } from 'Constants/defaultValues';
+import { getWatcherValidation, checkIsWatcherNameValid, checkIsFileValid } from './utils';
 import { remote } from 'electron';
 const { dialog } = remote;
 
@@ -28,6 +30,11 @@ const WatcherEditorView = ({
   const [script, setScript] = useState(watcher.script);
   const [install, setInstall] = useState(watcher.install);
   const [task, setTask] = useState(watcher.task);
+  const [validation, setValidation] = useState({
+    isValid: true,
+    nameMsg: null,
+    fileMsg: null,
+  });
 
   useEffect(() => {
     setEnabled(watcher.enabled);
@@ -39,40 +46,61 @@ const WatcherEditorView = ({
     setTask(watcher.task);
   }, [watcher]);
 
+  const getWatcherFromEditor = () => ({
+    id: watcher.id,
+    enabled,
+    name,
+    file,
+    notify,
+    script,
+    install,
+    task,
+  });
+
   const cs = useStyles();
+
   const handleSaveClick = () => {
-    saveWatcher({
-      id: watcher.id,
-      enabled,
-      name,
-      file,
-      notify,
-      script,
-      install,
-      task,
-    });
-    handleClose();
+    const watcherToSave = getWatcherFromEditor();
+    const result = getWatcherValidation(watcherToSave);
+    if (result.isValid) {
+      saveWatcher(watcherToSave);
+      handleClose();
+    } else {
+      setValidation(result);
+    }
   };
-  const openDialog = () => {
+
+  const handleNameChange = (e) => {
+    const name = e.target.value;
+    const error = checkIsWatcherNameValid(name);
+    setValidation({ ...validation, nameMsg: error });
+    setName(name);
+  };
+
+  const openFileDialog = () => {
     const openedFile = dialog.showOpenDialog({
       title: 'Add new file to watch',
       properties: ['openFile'],
       filters: [{ name: '*.json', extensions: ['json'] }],
     });
-
     if (openedFile) {
-      setFile(openedFile);
+      const error = checkIsFileValid(openedFile[0]);
+      setFile(openedFile[0]);
+      setValidation({
+        ...validation,
+        fileMsg: error,
+      });
     }
   };
 
   return (
     <Dialog open={isEditorOpened} onClose={handleClose}>
-      <DialogTitle>Add new package.json</DialogTitle>
+      <DialogTitle>Watcher editor</DialogTitle>
       <List className={cs.fullwidth}>
         <ListItem className={cs.listItem}>
           <TextField
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange}
             fullWidth={true}
             label="Name"
             margin="dense"
@@ -91,7 +119,7 @@ const WatcherEditorView = ({
           />
         </ListItem>
         <ListItem className={cs.listItem} style={{ minWidth: '500px' }}>
-          <Button variant="contained" onClick={openDialog}>
+          <Button variant="contained" onClick={openFileDialog}>
             Choose file
           </Button>
           <ListItemText>
@@ -114,6 +142,14 @@ const WatcherEditorView = ({
           />
         </ListItem>
         <ListItem className={cs.buttonPane}>
+          <List disablePadding>
+            <Typography variant="body2" color="error">
+              {validation.nameMsg}
+            </Typography>
+            <Typography variant="body2" color="error">
+              {validation.fileMsg}
+            </Typography>
+          </List>
           <ListItemSecondaryAction>
             <Button color="primary" variant="contained" onClick={handleSaveClick}>
               Save

@@ -18,7 +18,7 @@ const WatcherEditorStyles = makeStyles(() => ({
     flexGrow: 1,
   },
   buttonPane: {
-    minHeight: '3rem',
+    minHeight: '3.5rem',
   },
 }));
 

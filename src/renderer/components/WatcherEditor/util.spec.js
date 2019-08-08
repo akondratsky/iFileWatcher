@@ -1,4 +1,4 @@
-import { getWatcherValidation } from './util';
+import { getWatcherValidation, checkIsWatcherNameValid, checkIsFileValid } from './utils';
 import * as Strings from 'Constants/strings';
 import { MAX_FILE_SIZE } from 'Constants/util';
 import mockFs from 'mock-fs';
@@ -15,16 +15,16 @@ const watcherStub = {
 };
 
 describe('WatcherEditor utils', () => {
-  describe('getWatcherValidation', () => {
-    beforeEach(() => {
-      mockFs({
-        [validFilePath]: '{"C:\\\\git\\\\validFilename.json" : "too recursive" }',
-        [invalidFilePath]: '{"sfs1 : 1 { ]}} I am broken agrrhhh kill me pleeessss',
-      });
+  beforeEach(() => {
+    mockFs({
+      [validFilePath]: '{"C:\\\\git\\\\validFilename.json" : "too recursive" }',
+      [invalidFilePath]: '{"sfs1 : 1 { ]}} I am broken agrrhhh kill me pleeessss',
     });
+  });
 
-    afterEach(() => mockFs.restore());
+  afterEach(() => mockFs.restore());
 
+  describe('getWatcherValidation', () => {
     it('should return isValid equals true if all is ok', () => {
       const validation = getWatcherValidation({ ...watcherStub });
       expect(validation.isValid).to.be.equal(true);
@@ -92,6 +92,49 @@ describe('WatcherEditor utils', () => {
         expect(validation.isValid).to.be.equal(false);
         expect(validation.fileMsg).to.be.equal(Strings.FILE_IS_NOT_VALID_JSON_FILE);
       });
+    });
+  });
+
+  describe('checkIsWatcherNameValid', () => {
+    it('should return error for empty names and names contained only spaces', () => {
+      const names = ['', '     ', '\t'];
+      names.forEach((name) => {
+        const error = checkIsWatcherNameValid(name);
+        expect(error).to.be.equal(Strings.NAME_COULD_NOT_BE_EMPTY);
+      });
+    });
+
+    it('should return error for too long (>30) name', () => {
+      const name = '1234567890123456789012345678901';
+      const error = checkIsWatcherNameValid(name);
+      expect(error).to.be.equal(Strings.NAME_SHOULD_NOT_BE_TOO_LONG);
+    });
+  });
+
+  describe('checkIsFileValid', () => {
+    it('should return error if filename is empty', () => {
+      const error = checkIsFileValid('');
+      expect(error).to.be.equal(Strings.FILE_FIELD_SHOULD_NOT_BE_EMPTY);
+    });
+
+    it('Should check file is exists', () => {
+      const error = checkIsFileValid('C:\\thisfilenotexisting.json');
+      expect(error).to.be.equal(Strings.CANNOT_READ_THIS_FILE);
+    });
+
+    it('should check file that file is not too large', () => {
+      const sandbox = sinon.sandbox.create();
+      sandbox.stub(fs, 'statSync').callsFake(() => ({ size: MAX_FILE_SIZE + 33 }));
+
+      const error = checkIsFileValid(validFilePath);
+      expect(error).to.be.equal(Strings.FILE_SHOULD_NOT_BE_LARGER);
+
+      sandbox.restore();
+    });
+
+    it('should check file is valid JSON file', () => {
+      const error = checkIsFileValid(invalidFilePath);
+      expect(error).to.be.equal(Strings.FILE_IS_NOT_VALID_JSON_FILE);
     });
   });
 });
