@@ -1,16 +1,12 @@
 import { connect } from 'react-redux';
-import ConfirmDialogView from './ConfirmDialogView';
 import { getConfirmDialogOptions, getIsConfirmDialogOpened } from 'Selectors/ConfirmDialog';
 import { closeConfirmDialog } from 'Actions/ConfirmDialog';
+import ConfirmDialogView from './ConfirmDialogView';
 
 const mapStateToProps = (state) => {
-  const options = getConfirmDialogOptions(state);
+  const { title, text, buttons } = getConfirmDialogOptions(state);
   const opened = getIsConfirmDialogOpened(state);
-
-  return {
-    ...options,
-    opened,
-  };
+  return { title, text, buttons, opened };
 };
 
 const mapDispatchToProps = (dispatch) => ({

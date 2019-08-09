@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { getAllWatchers } from 'Selectors/watchers';
 import { openEditorToEditWatcher } from 'Actions/watcherEditor';
-import JsonPageBodyView from './JsonPageBodyView';
+import { openConfirmDialog } from 'Actions/ConfirmDialog';
 import {
   deleteWatcher,
   setWatcherEnabledById,
@@ -9,7 +9,7 @@ import {
   setWatcherInstallById,
   setWatcherRunScriptById,
 } from 'Actions/watchers';
-import { openConfirmDialog } from 'Actions/ConfirmDialog';
+import JsonPageBodyView from './JsonPageBodyView';
 
 const mapStateToProps = (state) => ({
   watchers: getAllWatchers(state),

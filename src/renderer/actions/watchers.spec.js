@@ -30,7 +30,7 @@ describe('Watchers actions', () => {
     store.dispatch(saveWatcher({ ...watcherStub }));
     const expectedActions = [
       {
-        type: ActionTypes.JSON_SAVE_WATCHER,
+        type: ActionTypes.SAVE_WATCHER,
         payload: { ...watcherStub },
       },
     ];
@@ -41,7 +41,7 @@ describe('Watchers actions', () => {
     store.dispatch(deleteWatcher(watcherStub.id));
     const expectedActions = [
       {
-        type: ActionTypes.JSON_DELETE_WATCHER,
+        type: ActionTypes.DELETE_WATCHER,
         payload: watcherStub.id,
       },
     ];
@@ -52,7 +52,7 @@ describe('Watchers actions', () => {
     store.dispatch(setWatcherEnabledById(42, true));
     const expectedActions = [
       {
-        type: ActionTypes.JSON_SET_WATCHER_ENABLED_BY_ID,
+        type: ActionTypes.SET_WATCHER_ENABLED_BY_ID,
         payload: { id: 42, enabled: true },
       },
     ];
@@ -63,7 +63,7 @@ describe('Watchers actions', () => {
     store.dispatch(setWatcherNotifyById(42, true));
     const expectedActions = [
       {
-        type: ActionTypes.JSON_SET_WATCHER_NOTIFY_BY_ID,
+        type: ActionTypes.SET_WATCHER_NOTIFY_BY_ID,
         payload: { id: 42, notify: true },
       },
     ];
@@ -74,7 +74,7 @@ describe('Watchers actions', () => {
     store.dispatch(setWatcherRunScriptById(42, true));
     const expectedActions = [
       {
-        type: ActionTypes.JSON_SET_WATCHER_SCRIPT_BY_ID,
+        type: ActionTypes.SET_WATCHER_SCRIPT_BY_ID,
         payload: { id: 42, script: true },
       },
     ];
@@ -85,7 +85,7 @@ describe('Watchers actions', () => {
     store.dispatch(setWatcherInstallById(42, true));
     const expectedActions = [
       {
-        type: ActionTypes.JSON_SET_WATCHER_INSTALL_BY_ID,
+        type: ActionTypes.SET_WATCHER_INSTALL_BY_ID,
         payload: { id: 42, install: true },
       },
     ];

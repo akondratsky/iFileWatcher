@@ -1,3 +1,7 @@
+// watcher editor
+export const CHOOSE_FILE = 'Choose file';
+
+// validation
 export const NAME_COULD_NOT_BE_EMPTY = 'Name should not be empty';
 export const NAME_SHOULD_NOT_BE_TOO_LONG = 'Name should not be too long';
 export const FILE_FIELD_SHOULD_NOT_BE_EMPTY = '"File" field should not be empty';

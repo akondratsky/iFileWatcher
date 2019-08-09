@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import useStyles from './WatcherEditorStyles';
+import * as Strings from 'Constants/strings';
 import {
   Button,
   Dialog,
@@ -6,23 +8,16 @@ import {
   TextField,
   List,
   ListItem,
+  ListItemSecondaryAction,
   ListItemText,
   Switch,
-  ListItemSecondaryAction,
   Typography,
 } from '@material-ui/core';
-import useStyles from './WatcherEditorStyles';
-import { defaultNewWatcher } from 'Constants/defaultValues';
 import { getWatcherValidation, checkIsWatcherNameValid, checkIsFileValid } from './utils';
 import { remote } from 'electron';
 const { dialog } = remote;
 
-const WatcherEditorView = ({
-  isEditorOpened,
-  handleClose,
-  watcher = defaultNewWatcher,
-  saveWatcher,
-}) => {
+const WatcherEditorView = ({ isOpened, handleClose, watcher, saveWatcher }) => {
   const [name, setName] = useState(watcher.name);
   const [enabled, setEnabled] = useState(watcher.enabled);
   const [file, setFile] = useState(watcher.file);
@@ -62,11 +57,10 @@ const WatcherEditorView = ({
   const handleSaveClick = () => {
     const watcherToSave = getWatcherFromEditor();
     const result = getWatcherValidation(watcherToSave);
+    setValidation(result);
     if (result.isValid) {
       saveWatcher(watcherToSave);
       handleClose();
-    } else {
-      setValidation(result);
     }
   };
 
@@ -79,7 +73,7 @@ const WatcherEditorView = ({
 
   const openFileDialog = () => {
     const openedFile = dialog.showOpenDialog({
-      title: 'Add new file to watch',
+      title: Strings.CHOOSE_FILE,
       properties: ['openFile'],
       filters: [{ name: '*.json', extensions: ['json'] }],
     });
@@ -94,10 +88,10 @@ const WatcherEditorView = ({
   };
 
   return (
-    <Dialog open={isEditorOpened} onClose={handleClose}>
+    <Dialog open={isOpened} onClose={handleClose}>
       <DialogTitle>Watcher editor</DialogTitle>
       <List className={cs.fullwidth}>
-        <ListItem className={cs.listItem}>
+        <ListItem>
           <TextField
             value={name}
             onChange={handleNameChange}
@@ -118,7 +112,7 @@ const WatcherEditorView = ({
             value={file}
           />
         </ListItem>
-        <ListItem className={cs.listItem} style={{ minWidth: '500px' }}>
+        <ListItem>
           <Button variant="contained" onClick={openFileDialog}>
             Choose file
           </Button>

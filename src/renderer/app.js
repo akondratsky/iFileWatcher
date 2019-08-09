@@ -6,11 +6,15 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { createMemoryHistory } from 'history';
+
 import routes from './routes';
 import configureStore from './store';
+import AppTheme from './theme';
+
 import CssBaseLine from '@material-ui/core/CssBaseline';
 import MainMenu from 'Components/MainMenu';
 import ConfirmDialog from 'Components/ConfirmDialog';
+import { ThemeProvider } from '@material-ui/styles';
 
 const syncHistoryWithStore = (store, history) => {
   const { router } = store.getState();
@@ -29,11 +33,13 @@ const rootElement = document.getElementById('root');
 
 ReactDOM.render(
   <Provider store={store}>
-    <CssBaseLine />
-    <MainMenu>
-      <ConnectedRouter history={routerHistory}>{routes}</ConnectedRouter>
-    </MainMenu>
-    <ConfirmDialog />
+    <ThemeProvider theme={AppTheme}>
+      <CssBaseLine />
+      <MainMenu>
+        <ConnectedRouter history={routerHistory}>{routes}</ConnectedRouter>
+      </MainMenu>
+      <ConfirmDialog />
+    </ThemeProvider>
   </Provider>,
   rootElement,
 );

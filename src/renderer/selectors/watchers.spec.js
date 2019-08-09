@@ -1,18 +1,10 @@
 import { getAllWatchers, getWatcherById } from './watchers';
 
-const defaultState = {
+const state = {
   watchers: [{ id: 1, name: 'first watchers' }, { id: 2, name: 'second watcher' }],
 };
 
 describe('Watchers Selectors', () => {
-  let state;
-
-  beforeEach(() => {
-    state = {
-      watchers: [{ ...defaultState.watchers[0] }, { ...defaultState.watchers[1] }],
-    };
-  });
-
   it('should get all watchers', () => {
     const actual = getAllWatchers(state);
     const expected = state.watchers;

@@ -7,11 +7,12 @@ export const checkIsFileValid = (filename) => {
 
   try {
     const stats = fs.statSync(filename);
+    const data = fs.readFileSync(filename);
+
     if (stats.size > MAX_FILE_SIZE) {
       return Strings.FILE_SHOULD_NOT_BE_LARGER;
     }
 
-    const data = fs.readFileSync(filename);
     try {
       JSON.parse(data);
     } catch {
@@ -26,6 +27,7 @@ export const checkIsFileValid = (filename) => {
 
 export const checkIsWatcherNameValid = (value) => {
   const name = value.trim();
+
   if (!name) {
     return Strings.NAME_COULD_NOT_BE_EMPTY;
   } else if (name.length > 30) {

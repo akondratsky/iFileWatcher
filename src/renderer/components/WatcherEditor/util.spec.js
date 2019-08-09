@@ -1,9 +1,9 @@
-import { getWatcherValidation, checkIsWatcherNameValid, checkIsFileValid } from './utils';
-import * as Strings from 'Constants/strings';
-import { MAX_FILE_SIZE } from 'Constants/util';
+import fs from 'fs';
 import mockFs from 'mock-fs';
 import sinon from 'sinon';
-import fs from 'fs';
+import * as Strings from 'Constants/strings';
+import { MAX_FILE_SIZE } from 'Constants/util';
+import { getWatcherValidation, checkIsWatcherNameValid, checkIsFileValid } from './utils';
 
 const validFilePath = 'C:\\git\\validJsonFile.json';
 const invalidFilePath = 'c:\\git\\invalidJsonFile.json';

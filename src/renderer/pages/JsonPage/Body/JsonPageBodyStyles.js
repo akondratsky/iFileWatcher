@@ -2,14 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   tableHeaderCell: {
-    color: '#000000',
-    backgroundColor: '#e0e0e0',
-    fontSize: '1rem',
+    color: theme.palette.common.black,
+    backgroundColor: theme.palette.grey[300],
+    fontSize: theme.typography.body1.fontSize,
   },
   tableCell: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    ...theme.classes.truncated,
     maxWidth: '150px',
   },
   tableSwicherCell: {
@@ -18,10 +16,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   tooltip: {
+    ...theme.classes.truncated,
     maxWidth: '500px',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
   },
   actionPane: {
     '& $actionButton:not(:last-child)': {

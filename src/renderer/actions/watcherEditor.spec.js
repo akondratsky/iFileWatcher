@@ -6,7 +6,7 @@ import {
   openEditorToCreateNewWatcher,
   openEditorToEditWatcher,
 } from './watcherEditor';
-import * as wactcherSelectors from 'Selectors/watchers';
+import * as watcherSelectors from 'Selectors/watchers';
 
 describe('Actions / watcher editor', () => {
   const watcherStub = {
@@ -34,7 +34,7 @@ describe('Actions / watcher editor', () => {
 
   before(() => {
     sandbox = sinon.sandbox.create();
-    sandbox.stub(wactcherSelectors, 'getWatcherById').callsFake(() => ({ ...watcherStub }));
+    sandbox.stub(watcherSelectors, 'getWatcherById').callsFake(() => ({ ...watcherStub }));
   });
 
   after(() => sandbox.restore());
@@ -43,11 +43,11 @@ describe('Actions / watcher editor', () => {
     store = mockStore({});
   });
 
-  it('should dispatch action setWatcherEditorOpened to open and close editor', () => {
+  it('should dispatch action setWatcherEditorIsOpened to open and close editor', () => {
     store.dispatch(setWatcherEditorIsOpened(true));
     const expectedActions = [
       {
-        type: ActionTypes.WATCHEREDITOR_SET_WATCHER_EDITOR_OPENED,
+        type: ActionTypes.SET_OPENED,
         payload: true,
       },
     ];
@@ -62,7 +62,7 @@ describe('Actions / watcher editor', () => {
     store.dispatch(loadWatcherToEditor(testWatcher));
     const expectedActions = [
       {
-        type: ActionTypes.WATCHEREDITOR_LOAD_WATCHER,
+        type: ActionTypes.LOAD_WATCHER,
         payload: testWatcher,
       },
     ];
@@ -73,11 +73,11 @@ describe('Actions / watcher editor', () => {
     store.dispatch(openEditorToCreateNewWatcher());
     const expectedActions = [
       {
-        type: ActionTypes.WATCHEREDITOR_LOAD_WATCHER,
+        type: ActionTypes.LOAD_WATCHER,
         payload: null,
       },
       {
-        type: ActionTypes.WATCHEREDITOR_SET_WATCHER_EDITOR_OPENED,
+        type: ActionTypes.SET_OPENED,
         payload: true,
       },
     ];
@@ -88,11 +88,11 @@ describe('Actions / watcher editor', () => {
     store.dispatch(openEditorToEditWatcher({ ...watcherStub }));
     const expectedActions = [
       {
-        type: ActionTypes.WATCHEREDITOR_LOAD_WATCHER,
+        type: ActionTypes.LOAD_WATCHER,
         payload: { ...watcherStub },
       },
       {
-        type: ActionTypes.WATCHEREDITOR_SET_WATCHER_EDITOR_OPENED,
+        type: ActionTypes.SET_OPENED,
         payload: true,
       },
     ];

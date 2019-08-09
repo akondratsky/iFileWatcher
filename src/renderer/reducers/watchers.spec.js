@@ -46,7 +46,7 @@ const watcherStub4 = {
 
 describe('Watchers reducers', () => {
   it('should change watcher if id exists', () => {
-    const customWatcherStub = {
+    const updatedWatcher = {
       id: watcherStub2.id,
       enabled: false,
       name: 'updated watcher',
@@ -58,24 +58,22 @@ describe('Watchers reducers', () => {
     };
 
     const action = {
-      type: ActionTypes.JSON_SAVE_WATCHER,
+      type: ActionTypes.SAVE_WATCHER,
       payload: {
-        ...customWatcherStub,
+        ...updatedWatcher,
       },
     };
 
     const actual = reducer([{ ...watcherStub1 }, { ...watcherStub2 }], action);
 
     expect(actual.length).to.equal(2);
-    expect(actual.find((watcher) => watcher.id === watcherStub2.id)).to.deep.equal(
-      customWatcherStub,
-    );
+    expect(actual.find((watcher) => watcher.id === watcherStub2.id)).to.deep.equal(updatedWatcher);
   });
 
   it('should delete watcher by id', () => {
     const initialState = [{ ...watcherStub1 }, { ...watcherStub2 }];
     const action = {
-      type: ActionTypes.JSON_DELETE_WATCHER,
+      type: ActionTypes.DELETE_WATCHER,
       payload: watcherStub2.id,
     };
     const actualState = reducer(initialState, action);
@@ -84,7 +82,7 @@ describe('Watchers reducers', () => {
 
   it('should create new watcher with new id if no id', () => {
     const action = {
-      type: ActionTypes.JSON_SAVE_WATCHER,
+      type: ActionTypes.SAVE_WATCHER,
       payload: {
         ...watcherStub3,
       },
@@ -98,7 +96,7 @@ describe('Watchers reducers', () => {
 
   it('should update property "Enabled" of watcher', () => {
     const action = {
-      type: ActionTypes.JSON_SET_WATCHER_ENABLED_BY_ID,
+      type: ActionTypes.SET_WATCHER_ENABLED_BY_ID,
       payload: { id: 777, enabled: true },
     };
 
@@ -110,7 +108,7 @@ describe('Watchers reducers', () => {
 
   it('should update property "Notify" of watcher', () => {
     const action = {
-      type: ActionTypes.JSON_SET_WATCHER_NOTIFY_BY_ID,
+      type: ActionTypes.SET_WATCHER_NOTIFY_BY_ID,
       payload: { id: 777, notify: true },
     };
 
@@ -122,7 +120,7 @@ describe('Watchers reducers', () => {
 
   it('should update property "Install" of watcher', () => {
     const action = {
-      type: ActionTypes.JSON_SET_WATCHER_INSTALL_BY_ID,
+      type: ActionTypes.SET_WATCHER_INSTALL_BY_ID,
       payload: { id: 777, install: true },
     };
 
@@ -134,7 +132,7 @@ describe('Watchers reducers', () => {
 
   it('should update property "Script" of watcher', () => {
     const action = {
-      type: ActionTypes.JSON_SET_WATCHER_SCRIPT_BY_ID,
+      type: ActionTypes.SET_WATCHER_SCRIPT_BY_ID,
       payload: { id: 777, script: true },
     };
 

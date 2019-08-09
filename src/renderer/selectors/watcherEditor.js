@@ -1,3 +1,7 @@
-export const getIsWatcherEditorOpened = (state) => state.watcherEditor.isOpened;
+import { defaultNewWatcher } from 'Constants/defaultValues';
 
-export const getEditedWatcher = (state) => state.watcherEditor.watcher;
+const getWatcherEditor = (state) => state.watcherEditor;
+
+export const getIsWatcherEditorOpened = (state) => getWatcherEditor(state).isOpened;
+
+export const getEditedWatcher = (state) => getWatcherEditor(state).watcher || defaultNewWatcher;

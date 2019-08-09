@@ -1,3 +1,5 @@
-export const getConfirmDialogOptions = (state) => state.confirmDialog.options;
+const getConfirmDialog = (state) => state.confirmDialog;
 
-export const getIsConfirmDialogOpened = (state) => state.confirmDialog.opened;
+export const getConfirmDialogOptions = (state) => getConfirmDialog(state).options;
+
+export const getIsConfirmDialogOpened = (state) => getConfirmDialog(state).opened;

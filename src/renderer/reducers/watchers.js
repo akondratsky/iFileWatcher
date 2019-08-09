@@ -10,85 +10,62 @@ import {
 
 const getStoreIndexById = (state, id) => state.findIndex((watcher) => watcher.id === id);
 
+const safeStateWithReplacedField = (state, index, replacement) => {
+  if (state[index]) {
+    const [...newState] = state;
+    newState.splice(index, 1, { ...state[index], ...replacement });
+    return newState;
+  }
+
+  return state;
+};
+
 export default handleActions(
   {
     [saveWatcher]: (state, { payload: watcher }) => {
       const { id } = watcher;
       const storeIndex = getStoreIndexById(state, id);
 
-      if (~storeIndex) {
-        const [...newState] = state;
-        newState.splice(storeIndex, 1, { ...watcher });
-        return newState;
+      if (state[storeIndex]) {
+        return safeStateWithReplacedField(state, storeIndex, { ...watcher });
       }
 
-      let newId;
-      if (state.length) {
-        newId = state[state.length - 1].id + 1;
-      } else {
-        newId = 1;
-      }
-
+      const newId = !state.length ? 1 : state[state.length - 1].id + 1;
       return [...state, { ...watcher, id: newId }];
     },
 
     [deleteWatcher]: (state, { payload: id }) => {
-      const storeIndex = getStoreIndexById(state, id);
-      const [...newState] = state;
-      if (~storeIndex) newState.splice(storeIndex, 1);
-      return newState;
+      const index = getStoreIndexById(state, id);
+      if (state[index]) {
+        const [...newState] = state;
+        newState.splice(index, 1);
+        return newState;
+      }
+      return state;
     },
 
     [setWatcherEnabledById]: (state, { payload }) => {
       const { id, enabled } = payload;
-      const storeIndex = getStoreIndexById(state, id);
-
-      if (~storeIndex) {
-        const [...newState] = state;
-        newState.splice(storeIndex, 1, { ...state[storeIndex], enabled });
-        return newState;
-      }
-
-      return state;
+      const index = getStoreIndexById(state, id);
+      return safeStateWithReplacedField(state, index, { enabled });
     },
 
     [setWatcherNotifyById]: (state, { payload }) => {
       const { id, notify } = payload;
-      const storeIndex = getStoreIndexById(state, id);
-
-      if (~storeIndex) {
-        const [...newState] = state;
-        newState.splice(storeIndex, 1, { ...state[storeIndex], notify });
-        return newState;
-      }
-
-      return state;
+      const index = getStoreIndexById(state, id);
+      return safeStateWithReplacedField(state, index, { notify });
     },
 
     [setWatcherRunScriptById]: (state, { payload }) => {
       const { id, script } = payload;
-      const storeIndex = getStoreIndexById(state, id);
-
-      if (~storeIndex) {
-        const [...newState] = state;
-        newState.splice(storeIndex, 1, { ...state[storeIndex], script });
-        return newState;
-      }
-
-      return state;
+      const index = getStoreIndexById(state, id);
+      return safeStateWithReplacedField(state, index, { script });
     },
 
     [setWatcherInstallById]: (state, { payload }) => {
       const { id, install } = payload;
-      const storeIndex = getStoreIndexById(state, id);
-
-      if (~storeIndex) {
-        const [...newState] = state;
-        newState.splice(storeIndex, 1, { ...state[storeIndex], install });
-        return newState;
-      }
-
-      return state;
+      const index = getStoreIndexById(state, id);
+      return safeStateWithReplacedField(state, index, { install });
     },
   },
   [],

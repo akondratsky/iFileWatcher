@@ -21,11 +21,11 @@ describe('ConfirmDialog actions', () => {
     store.dispatch(openConfirmDialog({ ...options }));
     const expectedActions = [
       {
-        type: ActionTypes.CONFIRMDIALOG_LOAD_OPTIONS,
+        type: ActionTypes.LOAD_OPTIONS,
         payload: { ...options },
       },
       {
-        type: ActionTypes.CONFIRMDIALOG_SET_OPENED,
+        type: ActionTypes.SET_OPENED,
         payload: true,
       },
     ];
@@ -36,7 +36,7 @@ describe('ConfirmDialog actions', () => {
     store.dispatch(closeConfirmDialog());
     const expectedActions = [
       {
-        type: ActionTypes.CONFIRMDIALOG_SET_OPENED,
+        type: ActionTypes.SET_OPENED,
         payload: false,
       },
     ];

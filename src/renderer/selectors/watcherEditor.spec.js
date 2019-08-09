@@ -1,6 +1,6 @@
 import { getIsWatcherEditorOpened, getEditedWatcher } from './watcherEditor';
 
-const defaultState = {
+const state = {
   watcherEditor: {
     isOpened: true,
     watcher: {
@@ -10,10 +10,6 @@ const defaultState = {
 };
 
 describe('watcher editor selectors', () => {
-  let state;
-
-  beforeEach(() => (state = { ...defaultState }));
-
   it('should get is editor opened', () => {
     expect(getIsWatcherEditorOpened(state)).to.equal(true);
   });

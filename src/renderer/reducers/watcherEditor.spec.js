@@ -26,7 +26,7 @@ const watcherStub2 = {
 describe('Watcher Editor reducers', () => {
   it('should load watcher into state', () => {
     const loadAction = {
-      type: ActionTypes.WATCHEREDITOR_LOAD_WATCHER,
+      type: ActionTypes.LOAD_WATCHER,
       payload: { ...watcherStub1 },
     };
     const actualState = watcherReducer({ watcher: { ...watcherStub2 } }, loadAction);
@@ -37,7 +37,7 @@ describe('Watcher Editor reducers', () => {
 
   it('should be opened', () => {
     const openAction = {
-      type: ActionTypes.WATCHEREDITOR_SET_WATCHER_EDITOR_OPENED,
+      type: ActionTypes.SET_OPENED,
       payload: true,
     };
     const actualState = watcherReducer(false, openAction);

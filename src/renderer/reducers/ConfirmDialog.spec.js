@@ -13,7 +13,7 @@ describe('ConfirmDialog reducer', () => {
       ],
     };
     const action = {
-      type: ActionTypes.CONFIRMDIALOG_LOAD_OPTIONS,
+      type: ActionTypes.LOAD_OPTIONS,
       payload: { ...options },
     };
     const actual = confirmDialogReducer({}, action);
@@ -24,12 +24,12 @@ describe('ConfirmDialog reducer', () => {
 
   it('should change "Opened" state', () => {
     const action = {
-      type: ActionTypes.CONFIRMDIALOG_SET_OPENED,
+      type: ActionTypes.SET_OPENED,
       payload: true,
     };
     const actual = confirmDialogReducer({ opened: false }, action);
     const expected = { opened: true };
 
     expect(actual).to.be.deep.equal(expected);
-  })
+  });
 });
