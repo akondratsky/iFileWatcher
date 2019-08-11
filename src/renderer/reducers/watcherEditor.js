@@ -4,10 +4,10 @@ import { defaultNewWatcher } from 'Constants/defaultValues';
 
 export default handleActions(
   {
-    [loadWatcherToEditor]: (state, { payload: watcher = { ...defaultNewWatcher } }) => {
+    [loadWatcherToEditor]: (state, { payload: watcher }) => {
       return {
         ...state,
-        watcher,
+        watcher: watcher ? { ...watcher } : { ...defaultNewWatcher },
       };
     },
     [setWatcherEditorIsOpened]: (state, { payload: isOpened }) => {
@@ -19,5 +19,6 @@ export default handleActions(
   },
   {
     isOpened: false,
+    watcher: { ...defaultNewWatcher },
   },
 );

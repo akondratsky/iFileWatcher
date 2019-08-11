@@ -1,12 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const WatcherEditorStyles = makeStyles(() => ({
-  fullWidth: {
-    width: '100%',
-    minWidth: '500px',
-  },
-  separatedLeft: {
-    marginLeft: '2rem',
+  withFixedWidth: {
+    width: '550px',
+    minWidth: '550px',
   },
   buttonPane: {
     minHeight: '3.5rem',

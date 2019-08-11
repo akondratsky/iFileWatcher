@@ -10,21 +10,15 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-  Switch,
   Typography,
 } from '@material-ui/core';
+import TitledSwitcher from './TitledSwitcher';
 import { getWatcherValidation, checkIsWatcherNameValid, checkIsFileValid } from './utils';
 import { remote } from 'electron';
 const { dialog } = remote;
 
-const WatcherEditorView = ({ isOpened, handleClose, watcher, saveWatcher }) => {
-  const [name, setName] = useState(watcher.name);
-  const [enabled, setEnabled] = useState(watcher.enabled);
-  const [file, setFile] = useState(watcher.file);
-  const [notify, setNotify] = useState(watcher.notify);
-  const [script, setScript] = useState(watcher.script);
-  const [install, setInstall] = useState(watcher.install);
-  const [task, setTask] = useState(watcher.task);
+const WatcherEditorView = ({ isOpened, handleClose, watcher: watcherToEdit, saveWatcher }) => {
+  const [watcher, setWatcher] = useState(watcherToEdit);
   const [validation, setValidation] = useState({
     isValid: true,
     nameMsg: null,
@@ -32,34 +26,16 @@ const WatcherEditorView = ({ isOpened, handleClose, watcher, saveWatcher }) => {
   });
 
   useEffect(() => {
-    setEnabled(watcher.enabled);
-    setName(watcher.name);
-    setFile(watcher.file);
-    setNotify(watcher.notify);
-    setScript(watcher.script);
-    setInstall(watcher.install);
-    setTask(watcher.task);
-  }, [watcher]);
+    setWatcher(watcherToEdit);
+  }, [watcherToEdit]);
 
-  const getWatcherFromEditor = () => ({
-    id: watcher.id,
-    enabled,
-    name,
-    file,
-    notify,
-    script,
-    install,
-    task,
-  });
-
-  const cs = useStyles();
+  const css = useStyles();
 
   const handleSaveClick = () => {
-    const watcherToSave = getWatcherFromEditor();
-    const result = getWatcherValidation(watcherToSave);
+    const result = getWatcherValidation(watcher);
     setValidation(result);
     if (result.isValid) {
-      saveWatcher(watcherToSave);
+      saveWatcher({ ...watcher });
       handleClose();
     }
   };
@@ -68,7 +44,7 @@ const WatcherEditorView = ({ isOpened, handleClose, watcher, saveWatcher }) => {
     const name = e.target.value;
     const error = checkIsWatcherNameValid(name);
     setValidation({ ...validation, nameMsg: error });
-    setName(name);
+    setWatcher({ ...watcher, name });
   };
 
   const openFileDialog = () => {
@@ -79,7 +55,7 @@ const WatcherEditorView = ({ isOpened, handleClose, watcher, saveWatcher }) => {
     });
     if (openedFile) {
       const error = checkIsFileValid(openedFile[0]);
-      setFile(openedFile[0]);
+      setWatcher({ ...watcher, file: openedFile[0] });
       setValidation({
         ...validation,
         fileMsg: error,
@@ -88,20 +64,23 @@ const WatcherEditorView = ({ isOpened, handleClose, watcher, saveWatcher }) => {
   };
 
   return (
-    <Dialog open={isOpened} onClose={handleClose}>
+    <Dialog open={isOpened} onClose={handleClose} PaperProps={{ className: css.withFixedWidth }}>
       <DialogTitle>Watcher editor</DialogTitle>
-      <List className={cs.fullwidth}>
+      <List>
         <ListItem>
           <TextField
-            value={name}
+            value={watcher.name}
             onChange={handleNameChange}
             fullWidth={true}
             label="Name"
             margin="dense"
             variant="outlined"
           />
-          <span className={cs.separatedLeft}>Enabled</span>
-          <Switch checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
+          <TitledSwitcher
+            title="Enabled"
+            checked={watcher.enabled}
+            onChange={(e) => setWatcher({ ...watcher, enabled: e.target.checked })}
+          />
         </ListItem>
         <ListItem>
           <TextField
@@ -109,33 +88,42 @@ const WatcherEditorView = ({ isOpened, handleClose, watcher, saveWatcher }) => {
             margin="dense"
             variant="outlined"
             label="File to watch"
-            value={file}
+            value={watcher.file}
           />
         </ListItem>
         <ListItem>
           <Button variant="contained" onClick={openFileDialog}>
             Choose file
           </Button>
-          <ListItemText>
-            <span className={cs.separatedLeft}>Notify</span>
-            <Switch checked={notify} onChange={(e) => setNotify(e.target.checked)} />
-            <span className={cs.separatedLeft}>Install</span>
-            <Switch checked={install} onChange={(e) => setInstall(e.target.checked)} />
-            <span className={cs.separatedLeft}>Script</span>
-            <Switch checked={script} onChange={(e) => setScript(e.target.checked)} />
-          </ListItemText>
+          <div>
+            <TitledSwitcher
+              title="Notify"
+              checked={watcher.notify}
+              onChange={(e) => setWatcher({ ...watcher, notify: e.target.checked })}
+            />
+            <TitledSwitcher
+              title="Install"
+              checked={watcher.install}
+              onChange={(e) => setWatcher({ ...watcher, install: e.target.checked })}
+            />
+            <TitledSwitcher
+              title="Script"
+              checked={watcher.script}
+              onChange={(e) => setWatcher({ ...watcher, script: e.target.checked })}
+            />
+          </div>
         </ListItem>
         <ListItem>
           <TextField
             fullWidth={true}
             label="Task"
             variant="outlined"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
+            value={watcher.task}
+            onChange={(e) => setWatcher({ ...watcher, task: e.target.value })}
             margin="dense"
           />
         </ListItem>
-        <ListItem className={cs.buttonPane}>
+        <ListItem className={css.buttonPane}>
           <List disablePadding>
             <Typography variant="body2" color="error">
               {validation.nameMsg}
