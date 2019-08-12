@@ -1,8 +1,9 @@
-import { configure, shallow, mount, render } from 'enzyme';
-import { expect } from 'chai';
-import Adapter from 'enzyme-adapter-react-16';
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
+require('@babel/register');
+const { configure, shallow, mount, render } = require('enzyme');
+const { expect } = require('chai');
+const Adapter = require('enzyme-adapter-react-16');
+const thunk = require('redux-thunk').default;
+const configureMockStore = require('redux-mock-store').default;
 
 before(() => {
   configure({ adapter: new Adapter() });

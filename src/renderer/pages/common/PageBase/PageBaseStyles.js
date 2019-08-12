@@ -2,10 +2,14 @@ import { makeStyles } from '@material-ui/styles';
 
 const PageBaseStyles = makeStyles(() => ({
   container: {
-    margin: '1.25rem',
+    margin: '.5rem 1rem',
+    flexGrow: 1,
   },
-  helloworld: {
-    margin: '1.222rem',
+  pageTitle: {
+    margin: 0,
+  },
+  controls: {
+    padding: '1rem 0 2rem',
   },
 }));
 

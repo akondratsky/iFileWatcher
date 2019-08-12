@@ -3,20 +3,20 @@ import { connectRouter, routerMiddleware, push } from 'connected-react-router';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
-import like from 'Reducers/like';
-import likeActions from 'Actions/like';
+import appReducers from 'Reducers';
+import { saveWatcher } from 'Actions/watchers';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
 
   const actionCreators = {
-    ...likeActions,
+    saveWatcher,
     push,
   };
 
   const reducers = {
     router: connectRouter(routerHistory),
-    like,
+    ...appReducers,
   };
 
   const middlewares = [thunk, router];
