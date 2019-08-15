@@ -72,7 +72,9 @@ const addTrayIcon = ({ app, mainWindow }) => {
 
   trayIcon.setIgnoreDoubleClickEvents(false);
   trayIcon.on('double-click', () => {
-    if (!mainWindow.isVisible()) {
+    if (mainWindow.isVisible()) {
+      mainWindow.hide();
+    } else {
       mainWindow.show();
       mainWindow.maximize();
     }
