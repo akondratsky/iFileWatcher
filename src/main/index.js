@@ -1,7 +1,7 @@
 const { app, crashReporter, BrowserWindow } = require('electron');
 const {
   getMainWindowOptions,
-  loadUrlOrFileInto,
+  loadAppIntoWindow,
   prepareDevTools,
   addTrayIcon,
 } = require('./helpers');
@@ -29,7 +29,7 @@ app.on('window-all-closed', () => {
 app.on('ready', async () => {
   mainWindow = new BrowserWindow(getMainWindowOptions());
   mainWindow.setMenuBarVisibility(false);
-  await loadUrlOrFileInto({ mainWindow, isDevelopment });
+  await loadAppIntoWindow({ mainWindow, isDevelopment });
 
   mainWindow.webContents.once('did-finish-load', () => {
     mainWindow.show();

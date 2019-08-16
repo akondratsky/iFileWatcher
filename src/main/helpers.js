@@ -26,7 +26,7 @@ const getMainWindowOptions = () => ({
   },
 });
 
-const loadUrlOrFileInto = async ({ mainWindow, isDevelopment }) => {
+const loadAppIntoWindow = async ({ mainWindow, isDevelopment }) => {
   if (isDevelopment) {
     await installExtensions();
 
@@ -84,7 +84,7 @@ const addTrayIcon = ({ app, mainWindow }) => {
 
 module.exports = {
   getMainWindowOptions,
-  loadUrlOrFileInto,
+  loadAppIntoWindow,
   prepareDevTools,
   addTrayIcon,
 };
