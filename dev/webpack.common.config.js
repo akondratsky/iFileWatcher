@@ -13,6 +13,10 @@ module.exports = {
       Constants: path.resolve(__dirname, '../src/renderer/constants'),
     },
   },
+  node: {
+    __filename: true,
+    __dirname: true,
+  },
   module: {
     rules: [
       {
