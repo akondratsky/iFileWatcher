@@ -50,6 +50,7 @@
     "redux-localstorage": "0.4.1",
     "redux-thunk": "2.2.0",
     "reselect": "4.0.0",
+    "tree-kill": "1.2.1",
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {

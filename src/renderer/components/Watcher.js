@@ -1,10 +1,15 @@
 import fs from 'fs';
 import debounce from 'debounce';
-import { getWatcherById } from 'Components/WatcherList/selectors';
 import notifier from 'node-notifier';
+import path from 'path';
+import kill from 'tree-kill';
+import { spawn } from 'child_process';
 import { getState } from '../app';
+import { getWatcherById } from 'Components/WatcherList/selectors';
 
 const DEBOUNCE_TIME = 1000;
+const COMMAND_NPM = /^win/.test(process.platform) ? 'npm.cmd' : 'npm';
+
 export class Watcher {
   constructor(watcher) {
     this.id = watcher.id;
@@ -25,12 +30,25 @@ export class Watcher {
         message: `${this.file} was changed`,
       });
     }
+
     if (install) {
-      console.log('install');
+      if (this.install_process && !this.install_process.killed) {
+        kill(this.install_process.pid);
+      }
+
+      this.install_process = spawn(COMMAND_NPM, ['i'], {
+        cwd: path.dirname(this.file),
+      });
+
+      this.install_process.stdout.on('data', () => console.log(this.install_process.pid));
+      // this.install_process.stderr.on('data', (data) => console.log(`stderr: ${data}`));
+      this.install_process.on('close', (code) => console.log(`exited with code ${code}`));
     }
+
     if (script) {
       console.log('script!');
     }
+
     console.log(`file changed: ${this.file}`);
   }, DEBOUNCE_TIME);
 
