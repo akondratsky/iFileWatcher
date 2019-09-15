@@ -1,1 +1,1 @@
-export const MAX_FILE_SIZE = 1048576; // 1 Mb
+const DEBOUNCE_JSON_WATCHER_TIME = 1000;

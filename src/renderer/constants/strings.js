@@ -8,3 +8,5 @@ export const FILE_FIELD_SHOULD_NOT_BE_EMPTY = '"File" field should not be empty'
 export const CANNOT_READ_THIS_FILE = 'Can not read this file';
 export const FILE_IS_NOT_VALID_JSON_FILE = 'This file is not valid JSON file';
 export const FILE_SHOULD_NOT_BE_LARGER = 'File should not be larger than 1 Mb';
+
+export const JSON_WATCHER_APP_NAME = 'JsonWatcher';

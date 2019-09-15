@@ -4,10 +4,12 @@ import notifier from 'node-notifier';
 import path from 'path';
 import kill from 'tree-kill';
 import { spawn } from 'child_process';
-import { getState } from '../app';
+import { dispatch, getState } from '../app';
 import { getWatcherById } from 'Components/WatcherList/selectors';
+import { writeMessage } from 'Components/MessageQueue/actions';
+import { DEBOUNCE_JSON_WATCHER_TIME } from 'Constants/util';
+import { JSON_WATCHER_APP_NAME } from 'Constants/strings';
 
-const DEBOUNCE_TIME = 1000;
 const COMMAND_NPM = /^win/.test(process.platform) ? 'npm.cmd' : 'npm';
 
 export class Watcher {
@@ -34,23 +36,37 @@ export class Watcher {
     if (install) {
       if (this.install_process && !this.install_process.killed) {
         kill(this.install_process.pid);
+        this.sendMessage('STOPPING CURRENT INSTALL PROCESS', false);
       }
 
       this.install_process = spawn(COMMAND_NPM, ['i'], {
         cwd: path.dirname(this.file),
       });
 
-      this.install_process.stdout.on('data', () => console.log(this.install_process.pid));
-      // this.install_process.stderr.on('data', (data) => console.log(`stderr: ${data}`));
-      this.install_process.on('close', (code) => console.log(`exited with code ${code}`));
+      this.install_process.stdout.on('data', (data) => this.sendMessage(data, false));
+      this.install_process.stderr.on('data', (data) => this.sendMessage(data, true));
+      this.install_process.on('close', (code) =>
+        this.sendMessage(`WAS EXITED WITH CODE ${code}`, false),
+      );
     }
 
     if (script) {
-      console.log('script!');
+      console.warn('scripts not implemented yet');
     }
+  }, DEBOUNCE_JSON_WATCHER_TIME);
 
-    console.log(`file changed: ${this.file}`);
-  }, DEBOUNCE_TIME);
+  sendMessage(data, isError) {
+    const { name } = getWatcherById(getState(), { id: this.id });
+    dispatch(
+      writeMessage({
+        app: JSON_WATCHER_APP_NAME,
+        timestamp: Date.now(),
+        name,
+        text: data.toString(),
+        isError,
+      }),
+    );
+  }
 
   stop() {
     this.fsWatcher.close();

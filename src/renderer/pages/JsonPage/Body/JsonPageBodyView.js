@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import useStyles from './JsonPageBodyStyles';
 import clsx from 'clsx';
 import {
@@ -26,7 +26,7 @@ const JsonPageBodyView = ({
   const switcherHeaderCellClass = clsx(css.tableHeaderCell, css.tableSwicherCell);
 
   return (
-    <Fragment>
+    <div className={css.container}>
       <WatcherEditor />
       <Table>
         <TableHead>
@@ -92,7 +92,7 @@ const JsonPageBodyView = ({
           ))}
         </TableBody>
       </Table>
-    </Fragment>
+    </div>
   );
 };
 

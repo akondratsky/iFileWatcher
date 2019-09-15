@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.common.white,
     },
   },
+  container: {
+    display: 'flex',
+    flexFlow: 'column',
+  },
 }));
 
 export default useStyles;

@@ -33,6 +33,7 @@ const store = configureStore(initialState, routerHistory);
 syncHistoryWithStore(store, routerHistory);
 
 export const getState = store.getState;
+export const dispatch = store.dispatch;
 
 const rootElement = document.getElementById('root');
 

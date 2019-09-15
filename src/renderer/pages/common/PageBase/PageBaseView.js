@@ -2,16 +2,16 @@ import React from 'react';
 import PageBaseStyles from './PageBaseStyles';
 
 const PageBase = (props) => {
-  const cs = PageBaseStyles();
+  const css = PageBaseStyles();
   const { title, controls, body } = props;
 
   return (
-    <div className={cs.container}>
+    <div className={css.container}>
       <header>
-        <h1 className={cs.pageTitle}>{title}</h1>
-        <div className={cs.controls}>{controls}</div>
+        <h1 className={css.pageTitle}>{title}</h1>
+        {controls && <div className={css.controls}>{controls}</div>}
       </header>
-      <main>{body}</main>
+      <main className={css.main}>{body}</main>
     </div>
   );
 };
