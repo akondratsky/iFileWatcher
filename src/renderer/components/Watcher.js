@@ -19,12 +19,11 @@ export class Watcher {
     this.task = watcher.task;
     this.file = watcher.file;
     this.fsWatcher = fs.watch(this.file, {}, this.changeHandler);
-    // do npm i
-    // then run task
+    this.runInstall().then(() => this.runTask());
   }
 
   changeHandler = debounce(async () => {
-    const { notify, install, script } = getWatcherById(getState(), { id: this.id });
+    const { notify } = getWatcherById(getState(), { id: this.id });
 
     if (notify) {
       notifier.notify({
@@ -33,27 +32,60 @@ export class Watcher {
       });
     }
 
-    if (install) {
-      if (this.install_process && !this.install_process.killed) {
-        kill(this.install_process.pid);
-        this.sendMessage('STOPPING CURRENT INSTALL PROCESS', false);
+    this.runInstall().then(() => this.runTask());
+  }, DEBOUNCE_JSON_WATCHER_TIME);
+
+  runInstall() {
+    return new Promise((resolve) => {
+      const { install } = getWatcherById(getState(), { id: this.id });
+
+      if (!install) {
+        resolve();
+        return;
       }
+
+      this.stopProcess(this.install_process);
 
       this.install_process = spawn(COMMAND_NPM, ['i'], {
         cwd: path.dirname(this.file),
       });
 
-      this.install_process.stdout.on('data', (data) => this.sendMessage(data, false));
-      this.install_process.stderr.on('data', (data) => this.sendMessage(data, true));
-      this.install_process.on('close', (code) =>
-        this.sendMessage(`WAS EXITED WITH CODE ${code}`, false),
-      );
-    }
+      this.waitFor(resolve, this.install_process);
+    });
+  }
 
-    if (script) {
-      console.warn('scripts not implemented yet');
-    }
-  }, DEBOUNCE_JSON_WATCHER_TIME);
+  runTask() {
+    return new Promise((resolve) => {
+      const { script } = getWatcherById(getState(), { id: this.id });
+
+      if (!script) {
+        resolve();
+        return;
+      }
+
+      this.stopProcess(this.taskProcess);
+
+      let [command, ...args] = this.task.split(' ');
+      if (command.toLowerCase() === 'npm') command = COMMAND_NPM;
+      args = args.filter((arg) => Boolean(arg.trim())); // filter empty strings
+
+      this.taskProcess = spawn(command, args, {
+        cwd: path.dirname(this.file),
+      });
+
+      this.waitFor(resolve, this.taskProcess);
+    });
+  }
+
+  waitFor(resolve, process) {
+    process.stdout.on('data', (data) => this.sendMessage(data, false));
+    process.stderr.on('data', (data) => this.sendMessage(data, true));
+
+    process.on('close', (code) => {
+      this.sendMessage(`TASK WAS EXITED WITH CODE ${code}`, false);
+      resolve();
+    });
+  }
 
   sendMessage(data, isError) {
     const { name } = getWatcherById(getState(), { id: this.id });
@@ -70,7 +102,15 @@ export class Watcher {
 
   stop() {
     this.fsWatcher.close();
-    // TODO: stop script if runned
+    this.stopProcess(this.install_process);
+    this.stopProcess(this.taskProcess);
+  }
+
+  stopProcess(process) {
+    if (process && !process.killed) {
+      kill(process.pid);
+      this.sendMessage('STOPPING PROCESS...', false);
+    }
   }
 
   update(watcher) {
@@ -78,16 +118,12 @@ export class Watcher {
       this.fsWatcher.close();
       this.file = watcher.file;
       this.fsWatcher = fs.watch(this.file, {}, this.changeHandler);
-      // also todo:
-      // stop task if runned
-      // rerun npm i then
-      // rerun task
+      this.changeHandler();
     }
 
     if (this.task !== watcher.task) {
-      // TODO: rerun task if this.script
-      console.log('task changed');
       this.task = watcher.task;
+      this.changeHandler();
     }
   }
 }

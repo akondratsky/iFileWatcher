@@ -13,8 +13,6 @@ const _recycleWatchers = createAction(ActionTypes.RECYCLE_WATCHERS);
 export const recycleWatchers = () => (dispatch, getState) => {
   const watchers = getAllWatchers(getState());
 
-  console.log('recycling watchers');
-
   watchers.forEach((watcher) => {
     const index = _runnedWatchers.findIndex((runned) => runned.id === watcher.id);
     const watcherIsRunned = index !== -1;
