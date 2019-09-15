@@ -26,7 +26,7 @@ export const recycleWatchers = () => (dispatch, getState) => {
 
     if (watcherIsRunned) {
       if (watcher.enabled) {
-        _runnedWatchers[index].update();
+        _runnedWatchers[index].update(watcher);
       } else {
         _runnedWatchers[index].stop();
         _runnedWatchers.splice(index);
