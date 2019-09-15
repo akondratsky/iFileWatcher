@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexFlow: 'column',
+    width: '100%',
   },
 }));
 
