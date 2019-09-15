@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { loadWatcherToEditor, setWatcherEditorIsOpened } from 'Actions/watcherEditor';
+import { loadWatcherToEditor, setWatcherEditorIsOpened } from 'Components/WatcherEditor/actions';
 import { defaultNewWatcher } from 'Constants/defaultValues';
 
 export default handleActions(

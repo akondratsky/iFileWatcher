@@ -1,5 +1,5 @@
 import confirmDialogReducer from './ConfirmDialog';
-import { ActionTypes } from 'Actions/ConfirmDialog';
+import { ActionTypes } from 'Components/ConfirmDialog/actions';
 
 describe('ConfirmDialog reducer', () => {
   it('should load dialog options', () => {

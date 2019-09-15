@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { confirmDialogLoadOptions, confirmDialogSetOpened } from 'Actions/ConfirmDialog';
+import { confirmDialogLoadOptions, confirmDialogSetOpened } from 'Components/ConfirmDialog/actions';
 
 export default handleActions(
   {

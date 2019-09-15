@@ -1,5 +1,5 @@
 import watcherReducer from './watcherEditor';
-import { ActionTypes } from 'Actions/watcherEditor';
+import { ActionTypes } from 'Components/WatcherEditor/actions';
 
 const watcherStub1 = {
   id: 42,

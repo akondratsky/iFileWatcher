@@ -11,12 +11,12 @@ export const ActionTypes = {
 
 export const saveWatcher = createAction(ActionTypes.SAVE_WATCHER, (watcher) => watcher);
 
-export const deleteWatcher = createAction(ActionTypes.DELETE_WATCHER, (id) => id);
-
 export const setWatcherEnabledById = createAction(
   ActionTypes.SET_WATCHER_ENABLED_BY_ID,
   (id, enabled) => ({ id, enabled }),
 );
+
+export const deleteWatcher = createAction(ActionTypes.DELETE_WATCHER, (id) => id);
 
 export const setWatcherNotifyById = createAction(
   ActionTypes.SET_WATCHER_NOTIFY_BY_ID,

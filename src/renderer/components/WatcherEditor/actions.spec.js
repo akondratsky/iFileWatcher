@@ -6,7 +6,7 @@ import {
   openEditorToCreateNewWatcher,
   openEditorToEditWatcher,
 } from './watcherEditor';
-import * as watcherSelectors from 'Selectors/watchers';
+import * as watcherSelectors from 'Components/WatcherList/selectors';
 
 describe('Actions / watcher editor', () => {
   const watcherStub = {

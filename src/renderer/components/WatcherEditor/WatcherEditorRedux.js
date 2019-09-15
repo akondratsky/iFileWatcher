@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
-import { getIsWatcherEditorOpened, getEditedWatcher } from 'Selectors/watcherEditor';
-import { setWatcherEditorIsOpened } from 'Actions/watcherEditor';
-import { saveWatcher } from 'Actions/watchers';
+
+import { getIsWatcherEditorOpened, getEditedWatcher } from 'Components/WatcherEditor/selectors';
+import { setWatcherEditorIsOpened } from 'Components/WatcherEditor/actions';
+import { saveWatcher } from 'Components/WatcherList/actions';
+
 import WatcherEditorView from './WatcherEditorView';
 
 const mapStateToProps = (state) => ({

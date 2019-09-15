@@ -10,9 +10,6 @@ module.exports = {
     alias: {
       Components: path.resolve(__dirname, '../src/renderer/components'),
       Pages: path.resolve(__dirname, '../src/renderer/pages'),
-      Actions: path.resolve(__dirname, '../src/renderer/actions'),
-      Reducers: path.resolve(__dirname, '../src/renderer/reducers'),
-      Selectors: path.resolve(__dirname, '../src/renderer/selectors'),
       Constants: path.resolve(__dirname, '../src/renderer/constants'),
     },
   },

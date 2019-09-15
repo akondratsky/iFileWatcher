@@ -1,10 +1,10 @@
-import { getAllWatchers, getWatcherById } from './watchers';
+import { getAllWatchers, getWatcherById } from './selectors';
 
 const state = {
   watchers: [{ id: 1, name: 'first watchers' }, { id: 2, name: 'second watcher' }],
 };
 
-describe('Watchers Selectors', () => {
+describe('WatcherList Selectors', () => {
   it('should get all watchers', () => {
     const actual = getAllWatchers(state);
     const expected = state.watchers;

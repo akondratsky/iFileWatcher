@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { openEditorToCreateNewWatcher } from 'Actions/watcherEditor';
+import { openEditorToCreateNewWatcher } from 'Components/WatcherEditor/actions';
 import JsonPageControlsView from './JsonPageControlsView';
 
 const mapDispatchToProps = (dispatch) => ({

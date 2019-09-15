@@ -6,7 +6,7 @@ import {
   setWatcherNotifyById,
   setWatcherRunScriptById,
   setWatcherInstallById,
-} from 'Actions/watchers';
+} from 'Components/WatcherList/actions';
 
 const getStoreIndexById = (state, id) => state.findIndex((watcher) => watcher.id === id);
 

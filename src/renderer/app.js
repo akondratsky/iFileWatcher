@@ -16,6 +16,8 @@ import MainMenu from 'Components/MainMenu';
 import ConfirmDialog from 'Components/ConfirmDialog';
 import { ThemeProvider } from '@material-ui/styles';
 
+import Application from 'Components/Application';
+
 const syncHistoryWithStore = (store, history) => {
   const { router } = store.getState();
   if (router && router.location) {
@@ -27,7 +29,10 @@ const initialState = {};
 const routerHistory = createMemoryHistory();
 
 const store = configureStore(initialState, routerHistory);
+
 syncHistoryWithStore(store, routerHistory);
+
+export const getState = store.getState;
 
 const rootElement = document.getElementById('root');
 
@@ -35,6 +40,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={AppTheme}>
       <CssBaseLine />
+      <Application />
       <MainMenu>
         <ConnectedRouter history={routerHistory}>{routes}</ConnectedRouter>
       </MainMenu>

@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
-import { getConfirmDialogOptions, getIsConfirmDialogOpened } from 'Selectors/ConfirmDialog';
-import { closeConfirmDialog } from 'Actions/ConfirmDialog';
-import ConfirmDialogView from './ConfirmDialogView';
+import {
+  getConfirmDialogOptions,
+  getIsConfirmDialogOpened,
+} from 'Components/ConfirmDialog/selectors';
+import { closeConfirmDialog } from 'Components/ConfirmDialog/actions';
+import ConfirmDialogView from 'Components/ConfirmDialog/ConfirmDialogView';
 
 const mapStateToProps = (state) => {
   const { title, text, buttons } = getConfirmDialogOptions(state);

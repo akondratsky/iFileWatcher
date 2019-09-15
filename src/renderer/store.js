@@ -3,8 +3,8 @@ import { connectRouter, routerMiddleware, push } from 'connected-react-router';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
-import appReducers from 'Reducers';
-import { saveWatcher } from 'Actions/watchers';
+import appReducers from './reducers';
+import { saveWatcher } from 'Components/WatcherList/actions';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
