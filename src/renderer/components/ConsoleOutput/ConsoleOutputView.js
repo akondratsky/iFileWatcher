@@ -11,7 +11,7 @@ const ConsoleOutputView = ({ messages }) => {
       <span className={clsx({ [css.error]: isError })}>
         {lines.map((line, index) => (
           <Fragment key={`${index}_${line}`}>
-            <span>{line}</span>
+            {line}
             {index === lines.length - 1 ? null : <br />}
           </Fragment>
         ))}

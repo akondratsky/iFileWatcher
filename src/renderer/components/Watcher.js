@@ -89,12 +89,14 @@ export class Watcher {
 
   sendMessage(data, isError) {
     const { name } = getWatcherById(getState(), { id: this.id });
+    const regexp = new RegExp(String.fromCharCode(27), 'g');
+
     dispatch(
       writeMessage({
         app: JSON_WATCHER_APP_NAME,
         timestamp: Date.now(),
         name,
-        text: data.toString(),
+        text: data.toString().replace(regexp, ' '),
         isError,
       }),
     );

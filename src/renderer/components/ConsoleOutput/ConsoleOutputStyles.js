@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   message: {
     margin: 0,
     fontSize: '1rem',
+    wordBreak: 'break-all',
   },
   error: {
     color: '#ff0000',
